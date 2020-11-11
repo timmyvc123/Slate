@@ -147,8 +147,9 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         
         //header size
         self.collectionView?.collectionViewLayout.sectionInset = UIEdgeInsets(top: 800, left: 0, bottom: 0, right: 0)
-
         
+        // inactive send button bug fix
+        self.inputToolbar.contentView.rightBarButtonItem.isEnabled = true
     }
     
     func addViewOnTop() {
@@ -277,7 +278,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         let message = messages[indexPath.row]
         var avatar: JSQMessageAvatarImageDataSource
         
-        if let testAvatar = jsqAvatarDictionary!.object(forKey: message.senderId) {
+        if let testAvatar = jsqAvatarDictionary!.object(forKey: message.senderId!) {
             avatar = testAvatar as! JSQMessageAvatarImageDataSource
         } else {
             avatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatarPlaceholder"), diameter: 70)

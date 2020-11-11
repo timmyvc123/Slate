@@ -18,12 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="xs1-nb-3wC">
-                                <rect key="frame" x="25.5" y="130" width="363" height="193"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="193" id="h56-LO-DeT"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lPK-KQ-2QY">
                                 <rect key="frame" x="111" y="385" width="193" height="39"/>
                                 <color key="backgroundColor" red="0.81960784313725488" green="0.84313725490196079" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,15 +47,21 @@
                                 <color key="textColor" name="TextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateGlobeLogoWNameAndBG" translatesAutoresizingMaskIntoConstraints="NO" id="xs1-nb-3wC">
+                                <rect key="frame" x="31" y="90" width="352" height="202"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="202" id="h56-LO-DeT"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="b6l-lo-Ivd"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="lPK-KQ-2QY" firstAttribute="leading" secondItem="b6l-lo-Ivd" secondAttribute="leading" constant="111" id="65F-gL-xnk"/>
                             <constraint firstItem="xs1-nb-3wC" firstAttribute="centerX" secondItem="lPK-KQ-2QY" secondAttribute="centerX" id="9xD-D8-9cE"/>
-                            <constraint firstItem="lPK-KQ-2QY" firstAttribute="top" secondItem="xs1-nb-3wC" secondAttribute="bottom" constant="62" id="ECQ-Pm-WFC"/>
-                            <constraint firstItem="xs1-nb-3wC" firstAttribute="top" secondItem="b6l-lo-Ivd" secondAttribute="top" constant="86" id="NqR-jO-aCv"/>
-                            <constraint firstItem="xs1-nb-3wC" firstAttribute="leading" secondItem="b6l-lo-Ivd" secondAttribute="leading" constant="25.5" id="eCk-JE-JbS"/>
+                            <constraint firstItem="lPK-KQ-2QY" firstAttribute="top" secondItem="xs1-nb-3wC" secondAttribute="bottom" constant="93" id="ECQ-Pm-WFC"/>
+                            <constraint firstItem="xs1-nb-3wC" firstAttribute="top" secondItem="b6l-lo-Ivd" secondAttribute="top" constant="46" id="NqR-jO-aCv"/>
+                            <constraint firstItem="xs1-nb-3wC" firstAttribute="leading" secondItem="b6l-lo-Ivd" secondAttribute="leading" constant="31" id="eCk-JE-JbS"/>
                             <constraint firstItem="mZ0-Q4-nYO" firstAttribute="top" secondItem="hOD-5p-z3L" secondAttribute="bottom" constant="128" id="jvr-A7-T48"/>
                             <constraint firstItem="mZ0-Q4-nYO" firstAttribute="centerX" secondItem="hOD-5p-z3L" secondAttribute="centerX" id="rw2-HA-hVu"/>
                             <constraint firstItem="lPK-KQ-2QY" firstAttribute="leading" secondItem="hOD-5p-z3L" secondAttribute="leading" id="vov-b6-ADW"/>
@@ -220,13 +220,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="showToggleButtonWhile" value="editing"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="FQ4-No-e0b">
-                                <rect key="frame" x="85" y="82" width="218" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="5aa-Xi-CQR"/>
-                                    <constraint firstAttribute="width" constant="218" id="k69-0u-Gir"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMo-Q0-bnd">
                                 <rect key="frame" x="20" y="99" width="25" height="25"/>
                                 <state key="normal" image="Back">
@@ -289,6 +282,13 @@
                                     <segue destination="a4K-oe-0gH" kind="presentation" modalPresentationStyle="fullScreen" id="2cf-k7-8w9"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateGlobeLogoNoNameWBg" translatesAutoresizingMaskIntoConstraints="NO" id="FQ4-No-e0b">
+                                <rect key="frame" x="66" y="58" width="282" height="158"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="158" id="5aa-Xi-CQR"/>
+                                    <constraint firstAttribute="width" constant="282" id="k69-0u-Gir"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AlW-Bm-jKX"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
@@ -303,15 +303,15 @@
                             <constraint firstItem="fSF-pM-laU" firstAttribute="top" secondItem="Y3I-79-Vt0" secondAttribute="bottom" constant="8" symbolic="YES" id="O55-B3-khn"/>
                             <constraint firstItem="qoz-4b-gSA" firstAttribute="top" secondItem="iLw-mR-A06" secondAttribute="bottom" constant="47" id="Tec-KD-vRv"/>
                             <constraint firstItem="qoz-4b-gSA" firstAttribute="leading" secondItem="AlW-Bm-jKX" secondAttribute="leading" constant="98" id="URI-Fd-gNy"/>
-                            <constraint firstItem="FQ4-No-e0b" firstAttribute="leading" secondItem="QMo-Q0-bnd" secondAttribute="trailing" constant="40" id="Whf-N6-g2H"/>
+                            <constraint firstItem="FQ4-No-e0b" firstAttribute="leading" secondItem="QMo-Q0-bnd" secondAttribute="trailing" constant="21" id="Whf-N6-g2H"/>
                             <constraint firstItem="QMo-Q0-bnd" firstAttribute="leading" secondItem="I0b-cG-6dt" secondAttribute="leadingMargin" id="a7L-S8-t04"/>
                             <constraint firstItem="iLw-mR-A06" firstAttribute="top" secondItem="S3I-do-kKK" secondAttribute="bottom" constant="8" symbolic="YES" id="aoo-FG-cwQ"/>
                             <constraint firstItem="iLw-mR-A06" firstAttribute="centerX" secondItem="qoz-4b-gSA" secondAttribute="centerX" id="dif-S9-8Iv"/>
                             <constraint firstItem="nZJ-U3-x9Z" firstAttribute="leading" secondItem="AlW-Bm-jKX" secondAttribute="leading" constant="50" id="f4O-a4-RDR"/>
                             <constraint firstItem="DAK-38-07Q" firstAttribute="leading" secondItem="S3I-do-kKK" secondAttribute="leading" id="fKK-XA-zHi"/>
-                            <constraint firstItem="nZJ-U3-x9Z" firstAttribute="top" secondItem="FQ4-No-e0b" secondAttribute="bottom" constant="48" id="fgG-5M-LiU"/>
+                            <constraint firstItem="nZJ-U3-x9Z" firstAttribute="top" secondItem="FQ4-No-e0b" secondAttribute="bottom" constant="42" id="fgG-5M-LiU"/>
                             <constraint firstItem="AlW-Bm-jKX" firstAttribute="trailing" secondItem="DAK-38-07Q" secondAttribute="trailing" constant="73" id="hy7-GB-JU7"/>
-                            <constraint firstItem="FQ4-No-e0b" firstAttribute="top" secondItem="AlW-Bm-jKX" secondAttribute="top" constant="38" id="iME-3e-0d0"/>
+                            <constraint firstItem="FQ4-No-e0b" firstAttribute="top" secondItem="AlW-Bm-jKX" secondAttribute="top" constant="14" id="iME-3e-0d0"/>
                             <constraint firstItem="S3I-do-kKK" firstAttribute="leading" secondItem="iLw-mR-A06" secondAttribute="leading" id="ihu-0C-3U4"/>
                             <constraint firstItem="DAK-38-07Q" firstAttribute="trailing" secondItem="iLw-mR-A06" secondAttribute="trailing" id="kOh-jt-fWL"/>
                             <constraint firstItem="Y3I-79-Vt0" firstAttribute="leading" secondItem="AlW-Bm-jKX" secondAttribute="leading" constant="107" id="oXZ-pD-1CC"/>
@@ -377,13 +377,6 @@
                                                     <userDefinedRuntimeAttribute type="image" keyPath="customHideSecureTextImage" value="openLock"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="D2H-nD-HKU">
-                                                <rect key="frame" x="126" y="39" width="176" height="101"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="176" id="Mnr-zM-QrI"/>
-                                                    <constraint firstAttribute="height" constant="101" id="pqi-K1-WBM"/>
-                                                </constraints>
-                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shJ-9k-gPo">
                                                 <rect key="frame" x="18" y="47" width="25" height="25"/>
                                                 <state key="normal" image="Back">
@@ -538,6 +531,13 @@
                                                     <action selector="registerButtonTapped:" destination="Nga-9S-RoF" eventType="touchUpInside" id="3Ou-jy-bTe"/>
                                                 </connections>
                                             </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateGlobeLogoNoNameWBg" translatesAutoresizingMaskIntoConstraints="NO" id="D2H-nD-HKU">
+                                                <rect key="frame" x="116" y="26" width="187" height="116"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="187" id="Mnr-zM-QrI"/>
+                                                    <constraint firstAttribute="height" constant="116" id="pqi-K1-WBM"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" name="BackgroundColor"/>
                                         <gestureRecognizers/>
@@ -558,9 +558,9 @@
                                             <constraint firstItem="cjA-17-eFa" firstAttribute="top" secondItem="nY5-QN-yjJ" secondAttribute="bottom" constant="8" id="AnD-df-oE8"/>
                                             <constraint firstItem="nY5-QN-yjJ" firstAttribute="centerX" secondItem="cjA-17-eFa" secondAttribute="centerX" id="BHL-My-dcb"/>
                                             <constraint firstItem="SWP-MV-zBy" firstAttribute="top" secondItem="IaV-pw-LXQ" secondAttribute="bottom" constant="8" id="CTy-ac-P2c"/>
-                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="centerX" secondItem="zLE-Ek-GTC" secondAttribute="centerX" id="Cbd-M5-vll"/>
+                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="centerX" secondItem="zLE-Ek-GTC" secondAttribute="centerX" constant="-4.5" id="Cbd-M5-vll"/>
                                             <constraint firstItem="99v-Z6-qjr" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="18" id="ClG-aU-UEW"/>
-                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="leading" secondItem="fkq-5E-aal" secondAttribute="trailing" constant="-68" id="Cpj-Df-OWx"/>
+                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="leading" secondItem="fkq-5E-aal" secondAttribute="trailing" constant="-78" id="Cpj-Df-OWx"/>
                                             <constraint firstItem="6YH-AS-ykm" firstAttribute="top" secondItem="zLE-Ek-GTC" secondAttribute="top" constant="340" id="DxO-df-dqd"/>
                                             <constraint firstItem="vC7-VW-p1h" firstAttribute="leading" secondItem="99v-Z6-qjr" secondAttribute="trailing" constant="-46" id="GMq-Yb-eD0"/>
                                             <constraint firstItem="nY5-QN-yjJ" firstAttribute="top" secondItem="1Nb-cx-ZtP" secondAttribute="bottom" constant="8" id="GWE-Qr-6uf"/>
@@ -593,14 +593,14 @@
                                             <constraint firstItem="Lfw-YO-Ca8" firstAttribute="top" secondItem="6YH-AS-ykm" secondAttribute="bottom" constant="8" symbolic="YES" id="d4z-Gq-Pjx"/>
                                             <constraint firstItem="Ndw-rm-R0x" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="18" id="dNc-9c-lZF"/>
                                             <constraint firstItem="POZ-ex-QpL" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="54" id="fBD-zD-VKf"/>
-                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="top" secondItem="zLE-Ek-GTC" secondAttribute="top" constant="39" id="fwP-Xy-wB3"/>
+                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="top" secondItem="zLE-Ek-GTC" secondAttribute="top" constant="26" id="fwP-Xy-wB3"/>
                                             <constraint firstItem="Ndw-rm-R0x" firstAttribute="top" secondItem="SWP-MV-zBy" secondAttribute="bottom" constant="8" id="hD7-Jp-PNL"/>
                                             <constraint firstItem="6YH-AS-ykm" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="18" id="hrS-Ni-k44"/>
                                             <constraint firstItem="jtp-GV-7XS" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="18" id="j6L-YV-eRE"/>
                                             <constraint firstItem="G16-Tt-7uc" firstAttribute="top" secondItem="6YH-AS-ykm" secondAttribute="bottom" constant="46" id="kSh-lU-GkM"/>
                                             <constraint firstAttribute="trailing" secondItem="N8F-QN-lKG" secondAttribute="trailing" constant="28" id="kTn-MN-dJq"/>
                                             <constraint firstItem="vC7-VW-p1h" firstAttribute="leading" secondItem="zLE-Ek-GTC" secondAttribute="leading" constant="18" id="nWN-TD-cE5"/>
-                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="centerX" secondItem="zLE-Ek-GTC" secondAttribute="centerX" id="nei-TO-aVx"/>
+                                            <constraint firstItem="D2H-nD-HKU" firstAttribute="centerX" secondItem="zLE-Ek-GTC" secondAttribute="centerX" constant="-4.5" id="nei-TO-aVx"/>
                                             <constraint firstItem="p5G-QM-kic" firstAttribute="top" secondItem="Lfw-YO-Ca8" secondAttribute="bottom" constant="14" id="poO-M8-5m9"/>
                                             <constraint firstAttribute="height" constant="1150" id="sK9-dC-7G9"/>
                                             <constraint firstItem="iEZ-qs-TxC" firstAttribute="top" secondItem="fkq-5E-aal" secondAttribute="bottom" constant="32" id="tSt-ZO-ouc"/>
@@ -620,7 +620,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ARK-1T-09l"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="BackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="z9i-YM-OgV" firstAttribute="trailing" secondItem="ARK-1T-09l" secondAttribute="trailing" id="7LX-vL-raO"/>
@@ -1792,8 +1792,8 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="beo-eV-go1"/>
-        <segue reference="dLB-gr-IBS"/>
+        <segue reference="0pP-eV-dbb"/>
+        <segue reference="4AU-BS-TJC"/>
         <segue reference="obE-gn-IYX"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -1804,9 +1804,10 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
         <image name="locked" width="24" height="24"/>
         <image name="openLock" width="24" height="24"/>
         <image name="settings" width="25" height="25"/>
-        <image name="slateLogo" width="60" height="60"/>
+        <image name="slateGlobeLogoNoNameWBg" width="995" height="983"/>
+        <image name="slateGlobeLogoWNameAndBG" width="995" height="983"/>
         <namedColor name="BackgroundColor">
-            <color red="0.41200000047683716" green="0.60399997234344482" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46666666666666667" green="0.70588235294117652" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="CellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1827,10 +1828,10 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TextColor">
-            <color red="0.81960784313725488" green="0.84313725490196079" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88235294117647056" green="0.93725490196078431" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TextOutlineColor">
-            <color red="0.40000000000000002" green="0.60392156862745094" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46666666666666667" green="0.70588235294117652" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,20 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="KbD-JF-f92">
-                                <rect key="frame" x="47" y="368" width="320" height="170"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slateGlobeLogoWNameAndBG" translatesAutoresizingMaskIntoConstraints="NO" id="KbD-JF-f92">
+                                <rect key="frame" x="-29.5" y="323" width="473" height="251"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="3v6-UB-AJ9"/>
-                                    <constraint firstAttribute="height" constant="170" id="8tQ-BP-UBJ"/>
+                                    <constraint firstAttribute="width" constant="473" id="3v6-UB-AJ9"/>
+                                    <constraint firstAttribute="height" constant="251" id="8tQ-BP-UBJ"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
                             <constraint firstItem="KbD-JF-f92" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="vge-c5-BTP"/>
-                            <constraint firstItem="KbD-JF-f92" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="yvU-rS-Lyd"/>
+                            <constraint firstItem="KbD-JF-f92" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-4.5" id="yvU-rS-Lyd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -38,9 +39,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SplashScreen" width="60" height="60"/>
+        <image name="slateGlobeLogoWNameAndBG" width="995" height="983"/>
         <namedColor name="BackgroundColor">
-            <color red="0.41200000047683716" green="0.60399997234344482" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46666666666666667" green="0.70588235294117652" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
