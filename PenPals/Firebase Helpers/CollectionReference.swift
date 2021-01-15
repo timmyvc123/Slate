@@ -22,6 +22,6 @@ enum FCollectionReference: String {
 }
 
 // returns path to database location
-func reference(_ collectionReference: FCollectionReference) -> CollectionReference{
+func FirebaseReference(_ collectionReference: FCollectionReference) -> CollectionReference{
     return Firestore.firestore().collection(collectionReference.rawValue)
 }

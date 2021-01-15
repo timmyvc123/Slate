@@ -44,7 +44,7 @@ class OutgoingMessages {
             for memberId in memberIds {
                 //create "Message" in firebase
                 // creates a message copy for each person in chatroom
-                reference(.Message).document(memberId).collection(chatRoomID).document(messageId).setData(messageDictionary as! [String : Any])
+                FirebaseReference(.Message).document(memberId).collection(chatRoomID).document(messageId).setData(messageDictionary as! [String : Any])
             }
             //update recent to display the latest message
             updateRecents(chatRoomId: chatRoomID, lastMessage: messageDictionary[kMESSAGE] as! String)
@@ -61,7 +61,7 @@ class OutgoingMessages {
         
         class func deleteMessage(withId: String, chatRoomId: String) {
            
-            reference(.Message).document(FUser.currentId()).collection(chatRoomId).document(withId).delete()
+            FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).document(withId).delete()
         }
         
         class func updateMessage(withId: String, chatRoomId: String, memberIds: [String]) {
@@ -72,13 +72,13 @@ class OutgoingMessages {
             
             for userId in memberIds {
                 
-                reference(.Message).document(userId).collection(chatRoomId).document(withId).getDocument { (snapshot, error) in
+                FirebaseReference(.Message).document(userId).collection(chatRoomId).document(withId).getDocument { (snapshot, error) in
                     
                     guard let snapshot = snapshot  else { return }
                     
                     if snapshot.exists {
                         
-                        reference(.Message).document(userId).collection(chatRoomId).document(withId).updateData(values)
+                        FirebaseReference(.Message).document(userId).collection(chatRoomId).document(withId).updateData(values)
                     }
                 }
             }

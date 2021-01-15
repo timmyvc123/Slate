@@ -13,25 +13,27 @@ pod 'Firebase/Auth'
 pod 'Firebase/Storage'
 pod 'Firebase/Firestore'
 pod 'Firebase/Analytics'
+pod 'Firebase/Messaging'
+pod 'FirebaseFirestoreSwift', '~> 7.0-beta'
 
-pod 'ProgressHUD'
-pod 'MBProgressHUD'
+pod 'RealmSwift'
+
+pod 'SKPhotoBrowser'
+pod 'Gallery'
+
+pod 'MessageKit'
+pod 'InputBarAccessoryView'
+
 pod 'JGProgressHUD'
-pod 'SVProgressHUD'
+pod 'ProgressHUD'
 
 pod 'JSQMessagesViewController', '7.3.3'
 pod 'IDMPhotoBrowser'
 
-pod 'ImagePicker'
-pod 'Gallery'
-
+pod 'OneSignal'
 pod 'PasswordTextField'
 
-pod 'FlagPhoneNumber'
-
-pod 'CountryPickerView'
-
-pod 'OneSignal'
+pod 'ImagePicker'
 
 end
 

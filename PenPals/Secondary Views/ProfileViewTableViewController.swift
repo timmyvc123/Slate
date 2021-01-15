@@ -45,24 +45,33 @@ class ProfileViewTableViewController: UITableViewController {
     
     @IBAction func messageButtonPressed(_ sender: Any) {
         if !checkBlockedStatus(withUser: user!) {
-            let messageVC = MessageViewController()
-            messageVC.titleName = user!.firstname
-            messageVC.membersToPush = [FUser.currentId(), user!.objectId]
-            messageVC.memberIds = [FUser.currentId(), user!.objectId]
+//            let messageVC = MessageViewController()
+//            messageVC.titleName = user!.firstname
+//            messageVC.membersToPush = [FUser.currentId(), user!.objectId]
+//            messageVC.memberIds = [FUser.currentId(), user!.objectId]
+//
+//            messageVC.chatRoomId = startPrivateChat(user1: FUser.currentUser()!, user2: user!)
+//            messageVC.isGroup = false
+//            messageVC.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(messageVC, animated: true)
             
-            messageVC.chatRoomId = startPrivateChat(user1: FUser.currentUser()!, user2: user!)
-            messageVC.isGroup = false
-            messageVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(messageVC, animated: true)
+            let chatId = startChat(user1: FUser.currentUser()!, user2: user!)
             
+            let privateChatView = NewMessageViewController(chatId: chatId, recipientId: user!.objectId, recipientName: user!.fullname)
+            
+            privateChatView.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(privateChatView, animated: true)
+            print("Start chatting in chatroom id: \(chatId)")
+
         } else {
-            
+
             self.hud.textLabel.text = NSLocalizedString("Not Available", comment: "")
             self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
             self.hud.show(in: self.view)
             self.hud.dismiss(afterDelay: 1.5, animated: true)
-            
+
         }
+
     }
     
     @IBAction func blockUserButtonPressed(_ sender: Any) {

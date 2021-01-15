@@ -9,8 +9,6 @@
 import UIKit
 import JGProgressHUD
 import PasswordTextField
-import FlagPhoneNumber
-import CountryPickerView
 
 class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -43,9 +41,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var myImageView: UIImageView!
     var myImage: UIImage!
-    
-    weak var cpvTextField: CountryPickerView!
-    let cpvInternal = CountryPickerView()
     
     var email: String!
     var password: String!
@@ -352,6 +347,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         return languageValue
     }
+    
+    
     
     
     //MARK: GoToApp

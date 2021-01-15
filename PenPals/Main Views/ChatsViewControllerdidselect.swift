@@ -195,7 +195,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func loadRecentChats() {
         
-        recentListener = reference(.Recent).whereField(kUSERID, isEqualTo: FUser.currentId()).addSnapshotListener({ (snapshot, error) in
+        recentListener = FirebaseReference(.Recent).whereField(kUSERID, isEqualTo: FUser.currentId()).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -220,7 +220,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.recentChats.append(recent)
                     }
                     
-                    reference(.Recent).whereField(kCHATROOMID, isEqualTo: recent[kCHATROOMID] as! String).getDocuments(completion: { (snapshot, error) in
+                    FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: recent[kCHATROOMID] as! String).getDocuments(completion: { (snapshot, error) in
                         
                     })
                 }
@@ -250,7 +250,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //display profile veiw
             
             // get the user ID
-            reference(.User).document(recentChat[kWITHUSERUSERID] as! String).getDocument { (snapshot, error) in
+            FirebaseReference(.User).document(recentChat[kWITHUSERUSERID] as! String).getDocument { (snapshot, error) in
                 
                 guard let snapshot = snapshot else { return }
                 

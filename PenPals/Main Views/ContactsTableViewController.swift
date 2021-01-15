@@ -266,7 +266,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         hud.show(in: self.view)
         
         var query: Query!
-        query = reference(.User).order(by: kFIRSTNAME, descending: false)
+        query = FirebaseReference(.User).order(by: kFIRSTNAME, descending: false)
         
         // snapshot = each users data
         query.getDocuments { (snapshot, error) in
@@ -414,7 +414,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
         hud.show(in: self.view)
         
         var query: Query!
-        query = reference(.User).order(by: kFIRSTNAME, descending: false)
+        query = FirebaseReference(.User).order(by: kFIRSTNAME, descending: false)
         
         // snapshot = each users data
         query.getDocuments { (snapshot, error) in

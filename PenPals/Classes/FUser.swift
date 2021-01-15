@@ -12,7 +12,13 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class FUser {
+class FUser: Codable, Equatable {
+    
+    
+    static func == (lhs: FUser, rhs: FUser) -> Bool {
+        lhs.objectId == rhs.objectId
+    }
+    
     
     // firebase creates an unique Id for every user
     let objectId: String
@@ -26,12 +32,7 @@ class FUser {
     var lastname: String
     var fullname: String
     var avatar: String
-    var isOnline: Bool
     var phoneNumber: String
-    var countryCode: String
-    var country:String
-    var city: String
-    
     var language: String
     
     var contacts: [String]
@@ -43,7 +44,7 @@ class FUser {
     
     // standard initializier to give objects to user
     
-    init(_objectId: String, _pushId: String?, _createdAt: Date, _updatedAt: Date, _email: String, _firstname: String, _lastname: String, _avatar: String = "", _loginMethod: String, _phoneNumber: String, _city: String, _country: String, _language: String) {
+    init(_objectId: String, _pushId: String?, _createdAt: Date, _updatedAt: Date, _email: String, _firstname: String, _lastname: String, _avatar: String = "", _loginMethod: String, _phoneNumber: String, _language: String) {
         
         objectId = _objectId
         pushId = _pushId
@@ -56,16 +57,11 @@ class FUser {
         lastname = _lastname
         fullname = _firstname + " " + _lastname
         avatar = _avatar
-        isOnline = true
-        
-        city = _city
-        country = _country
-        
+
         language = _language
         
         loginMethod = _loginMethod
         phoneNumber = _phoneNumber
-        countryCode = ""
         blockedUsers = []
         contacts = []
         friendListIds = []
@@ -121,20 +117,10 @@ class FUser {
         } else {
             avatar = ""
         }
-        if let onl = _dictionary[kISONLINE] {
-            isOnline = onl as! Bool
-        } else {
-            isOnline = false
-        }
         if let phone = _dictionary[kPHONE] {
             phoneNumber = phone as! String
         } else {
             phoneNumber = ""
-        }
-        if let countryC = _dictionary[kCOUNTRYCODE] {
-            countryCode = countryC as! String
-        } else {
-            countryCode = ""
         }
         if let cont = _dictionary[kCONTACT] {
             contacts = cont as! [String]
@@ -151,16 +137,6 @@ class FUser {
             loginMethod = lgm as! String
         } else {
             loginMethod = ""
-        }
-        if let cit = _dictionary[kCITY] {
-            city = cit as! String
-        } else {
-            city = ""
-        }
-        if let count = _dictionary[kCOUNTRY] {
-            country = count as! String
-        } else {
-            country = ""
         }
         if let lang = _dictionary[kLANGUAGE] {
             language = lang as! String
@@ -215,7 +191,7 @@ class FUser {
             } else {
                 //get user from firebase and save locally
                 //fetchCurrentUserFromFirestore(userId: firUser!.user.uid)
-                reference(.User).document(firUser!.user.uid).getDocument { (snapshot, error) in
+                FirebaseReference(.User).document(firUser!.user.uid).getDocument { (snapshot, error) in
                     
                     guard let snapshot = snapshot else {  return }
                     
@@ -249,8 +225,7 @@ class FUser {
                 return
             }
             
-            let fUser = FUser(_objectId: firuser!.user.uid, _pushId: "", _createdAt: Date(), _updatedAt: Date(), _email: firuser!.user.email!, _firstname: firstName, _lastname: lastName, _avatar: avatar, _loginMethod: kEMAIL, _phoneNumber: "", _city: "", _country: "", _language: "")
-            
+            let fUser = FUser(_objectId: firuser!.user.uid, _pushId: "", _createdAt: Date(), _updatedAt: Date(), _email: firuser!.user.email!, _firstname: firstName, _lastname: lastName, _avatar: avatar, _loginMethod: kEMAIL, _phoneNumber: "", _language: "")
             
             saveUserLocally(fUser: fUser)
             saveUserToFirestore(fUser: fUser)
@@ -325,9 +300,9 @@ class FUser {
 //MARK: Save user funcs
 
 func saveUserToFirestore(fUser: FUser) {
-    reference(.User).document(fUser.objectId).setData(userDictionaryFrom(user: fUser) as! [String : Any]) { (error) in
+    FirebaseReference(.User).document(fUser.objectId).setData(userDictionaryFrom(user: fUser) as! [String : Any]) { (error) in
         
-        print("error is \(error?.localizedDescription)")
+        print("error is \(String(describing: error?.localizedDescription))")
     }
 }
 
@@ -346,7 +321,7 @@ func fetchCurrentUserFromFirestore(userId: String) {
     
     // check reference in databse and search for user logging in that matches the Id
     // in the database collection "User"
-    reference(.User).document(userId).getDocument { (snapshot, error) in
+    FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
         
         guard let snapshot = snapshot else {  return }
         
@@ -367,7 +342,7 @@ func fetchCurrentUserFromFirestore(userId: String) {
 
 func fetchCurrentUserFromFirestore(userId: String, completion: @escaping (_ user: FUser?)->Void) {
     
-    reference(.User).document(userId).getDocument { (snapshot, error) in
+    FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
         
         guard let snapshot = snapshot else {  return }
         
@@ -389,7 +364,8 @@ func userDictionaryFrom(user: FUser) -> NSDictionary {
     let createdAt = dateFormatter().string(from: user.createdAt)
     let updatedAt = dateFormatter().string(from: user.updatedAt)
     
-    return NSDictionary(objects: [user.objectId,  createdAt, updatedAt, user.email, user.loginMethod, user.pushId!, user.firstname, user.lastname, user.fullname, user.avatar, user.contacts, user.blockedUsers, user.isOnline, user.phoneNumber, user.countryCode, user.city, user.country, user.friendListIds], forKeys: [kOBJECTID as NSCopying, kCREATEDAT as NSCopying, kUPDATEDAT as NSCopying, kEMAIL as NSCopying, kLOGINMETHOD as NSCopying, kPUSHID as NSCopying, kFIRSTNAME as NSCopying, kLASTNAME as NSCopying, kFULLNAME as NSCopying, kAVATAR as NSCopying, kCONTACT as NSCopying, kBLOCKEDUSERID as NSCopying, kISONLINE as NSCopying, kPHONE as NSCopying, kCOUNTRYCODE as NSCopying, kCITY as NSCopying, kCOUNTRY as NSCopying, kFRIENDLISTIDS as NSCopying])
+    return NSDictionary(objects: [user.objectId, user.pushId!, createdAt, updatedAt, user.email, user.loginMethod, user.firstname, user.lastname, user.fullname, user.avatar, user.contacts, user.blockedUsers, user.phoneNumber, user.friendListIds], forKeys: [kOBJECTID as NSCopying, kPUSHID as NSCopying, kCREATEDAT as NSCopying, kUPDATEDAT as NSCopying, kEMAIL as NSCopying, kLOGINMETHOD as NSCopying, kFIRSTNAME as NSCopying, kLASTNAME as NSCopying, kFULLNAME as NSCopying, kAVATAR as NSCopying, kCONTACT as NSCopying, kBLOCKEDUSERID as NSCopying, kPHONE as NSCopying, kFRIENDLISTIDS as NSCopying])
+    
     //kFRIENDLISTIDS = "friendListIds"
 }
 
@@ -401,19 +377,19 @@ func getUsersFromFirestore(withIds: [String], completion: @escaping (_ usersArra
     //go through each user and download it from firestore
     for userId in withIds {
         
-        reference(.User).document(userId).getDocument { (snapshot, error) in
+        FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
             
             guard let snapshot = snapshot else {  return }
             
             if snapshot.exists {
                 
-                let user = FUser(_dictionary: snapshot.data() as! NSDictionary)
+                let user = FUser(_dictionary: snapshot.data()! as NSDictionary)
                 count += 1
                 
                 //dont add if its current user
                 if user.objectId != FUser.currentId() {
                     usersArray.append(user)
-                }
+                }  
                 
             } else {
                 completion(usersArray)
@@ -446,7 +422,7 @@ func updateCurrentUserInFirestore(withValues : [String : Any], completion: @esca
         
         userObject.setValuesForKeys(tempWithValues)
         
-        reference(.User).document(currentUserId).updateData(withValues) { (error) in
+        FirebaseReference(.User).document(currentUserId).updateData(withValues) { (error) in
             
             if error != nil {
                 

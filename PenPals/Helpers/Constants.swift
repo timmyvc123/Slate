@@ -69,8 +69,6 @@ public let kCOUNTRY = "country"
 public let kBLOCKEDUSERID = "blockedUserId"
 public let kFRIENDLISTIDS = "friendListIds"
 
-
-
 //
 public let kBACKGROUNDIMAGE = "backgroundImage"
 public let kSHOWAVATAR = "showAvatar"
@@ -128,9 +126,10 @@ public let kLONGITUDE = "longitude"
 
 //message status
 public let kDELIVERED = "Delivered"
-public let kREAD = "read"
 public let kREADDATE = "readDate"
 public let kDELETED = "deleted"
+public let kSENT = "Sent"
+public let kREAD = "Read"
 
 
 

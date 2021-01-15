@@ -550,7 +550,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         hud.dismiss(afterDelay: 2.0, animated: true)
         
         // to update message status delivered/read
-        updatedChatListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
+        updatedChatListener = FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -567,7 +567,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         })
         
         //get last 11 messages to display (max amount VC can display
-        reference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
+        FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
             
             guard let snapshot = snapshot else {
                 //initial loading is done (get 11 messages)
@@ -610,7 +610,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         }
         
         //create listener
-        newChatListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ (snapshot, error) in
+        newChatListener = FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -659,7 +659,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
                
                //check if there is any older messages then the most recent one
                let firstMessageDate = loadedMessages.first![kDATE] as! String
-               reference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
+               FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
                    
                    //check if we got  snapshot
                    guard let snapshot = snapshot else { return }
@@ -818,7 +818,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
     //MARK: Typing indicator
     func createtypingObserver() {
         
-        typingListener = reference(.Typing).document(chatRoomId).addSnapshotListener({ (snapshot, error) in
+        typingListener = FirebaseReference(.Typing).document(chatRoomId).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -843,7 +843,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
                 
             } else {
                 //if there is no snapshot set typing indicator to false
-                reference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
+                FirebaseReference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
             }
             
         })
@@ -867,7 +867,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
     }
     
     func typingCounterSave(typing: Bool) {
-        reference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
+        FirebaseReference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
         
     }
     

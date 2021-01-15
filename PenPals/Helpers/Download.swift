@@ -9,18 +9,14 @@
 import Foundation
 import FirebaseStorage
 import Firebase
-import MBProgressHUD
 import AVFoundation
 
 // get firebase storage and initialize it
 let storage = Storage.storage()
-
+//
 //image
 func uploadImage(image: UIImage, chatRoomId: String, view: UIView, completion: @escaping (_ imageLink: String?) -> Void) {
     
-    let progressHUD = MBProgressHUD.showAdded(to: view, animated: true)
-    
-    progressHUD.mode = .determinateHorizontalBar
     
     //create date string with picture file to make a unique file name
     let dateString = dateFormatter().string(from: Date())
@@ -39,7 +35,7 @@ func uploadImage(image: UIImage, chatRoomId: String, view: UIView, completion: @
         
         //stops listening for changes in storage directory
         task.removeAllObservers()
-        progressHUD.hide(animated: true)
+//        progressHUD.hide(animated: true)
         
         if error != nil {
             print("error uploading image \(error!.localizedDescription)")
@@ -64,7 +60,7 @@ func uploadImage(image: UIImage, chatRoomId: String, view: UIView, completion: @
     task.observe(StorageTaskStatus.progress) { (snapshot) in
         
         //Example: 100 mb file has only 10 mb uploaded it'll so 100/10 so 10%
-        progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
+//        progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
         
     }
     
@@ -136,9 +132,6 @@ func downloadImage(imageUrl: String, completion: @escaping(_ image: UIImage?) ->
 //video
 func uploadVideo(video: NSData, chatRoomId: String, view: UIView, completion: @escaping(_ videoLink: String?) -> Void) {
     
-    let progressHUD = MBProgressHUD.showAdded(to: view, animated: true)
-    progressHUD.mode = .determinateHorizontalBar
-    
     let dateString = dateFormatter().string(from: Date())
     
     let videoFileName = "VideoMessages/" + FUser.currentId() + "/" + chatRoomId + "/" + dateString + ".mov"
@@ -149,7 +142,6 @@ func uploadVideo(video: NSData, chatRoomId: String, view: UIView, completion: @e
     task = storageRef.putData(video as Data, metadata: nil, completion: { (metadata, error) in
         
         task.removeAllObservers()
-        progressHUD.hide(animated: true)
         
         if error != nil {
             print("error couldn't upload video \(error!.localizedDescription)")
@@ -169,7 +161,7 @@ func uploadVideo(video: NSData, chatRoomId: String, view: UIView, completion: @e
     
     task.observe(StorageTaskStatus.progress) { (snapshot) in
         
-        progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
+//        progressHUD.progress = Float((snapshot.progress?.completedUnitCount)!) / Float((snapshot.progress?.totalUnitCount)!)
         
     }
 }
@@ -261,34 +253,34 @@ func videoThumbnail(video: NSURL) -> UIImage {
 
 
 
-func fileInDocumentsDirectory(fileName: String) -> String {
-    
-    let fileURL = getDocumentsURL().appendingPathComponent(fileName)
-    return fileURL.path
-}
+//func fileInDocumentsDirectory(fileName: String) -> String {
+//    
+//    let fileURL = getDocumentsURL().appendingPathComponent(fileName)
+//    return fileURL.path
+//}
 
-func getDocumentsURL() -> URL {
-    
-    let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
-    
-    return documentURL!
-    
-}
+//func getDocumentsURL() -> URL {
+//    
+//    let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+//    
+//    return documentURL!
+//    
+//}
 
-func fileExistsAtPath(path: String) -> Bool {
-    
-    var doesExist = false
-    
-    let filePath = fileInDocumentsDirectory(fileName: path)
-    let fileManager = FileManager.default
-    
-    if fileManager.fileExists(atPath: filePath) {
-        
-        doesExist = true
-    } else {
-        doesExist = false
-    }
-    
-    return doesExist
-    
-}
+//func fileExistsAtPath(path: String) -> Bool {
+//    
+//    var doesExist = false
+//    
+//    let filePath = fileInDocumentsDirectory(fileName: path)
+//    let fileManager = FileManager.default
+//    
+//    if fileManager.fileExists(atPath: filePath) {
+//        
+//        doesExist = true
+//    } else {
+//        doesExist = false
+//    }
+//    
+//    return doesExist
+//    
+//}

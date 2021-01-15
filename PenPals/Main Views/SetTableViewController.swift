@@ -271,7 +271,7 @@ class SetTableViewController: UITableViewController {
         userDefaults.synchronize()
         
         //delete from firebase
-        reference(.User).document(FUser.currentId()).delete()
+        FirebaseReference(.User).document(FUser.currentId()).delete()
         
         FUser.deleteUser { (error) in
             

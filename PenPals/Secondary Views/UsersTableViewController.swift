@@ -200,7 +200,7 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
         hud.show(in: self.view)
 
         var query: Query!
-        query = reference(.User).order(by: kFIRSTNAME, descending: false)
+        query = FirebaseReference(.User).order(by: kFIRSTNAME, descending: false)
 
         
         // snapshot = each users data

@@ -52,7 +52,7 @@ func getMembersToPush(members: [String], completion: @escaping (_ usersArray: [S
     
     for memberId in members {
         
-        reference(.User).document(memberId).getDocument { (snapshot, error) in
+        FirebaseReference(.User).document(memberId).getDocument { (snapshot, error) in
             
             guard let snapshot = snapshot else { completion(pushIds); return }
             
