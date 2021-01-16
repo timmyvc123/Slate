@@ -44,7 +44,7 @@ class OutgoingMessages {
             for memberId in memberIds {
                 //create "Message" in firebase
                 // creates a message copy for each person in chatroom
-                FirebaseReference(.Message).document(memberId).collection(chatRoomID).document(messageId).setData(messageDictionary as! [String : Any])
+                FirebaseReference(.Messages).document(memberId).collection(chatRoomID).document(messageId).setData(messageDictionary as! [String : Any])
             }
             //update recent to display the latest message
             updateRecents(chatRoomId: chatRoomID, lastMessage: messageDictionary[kMESSAGE] as! String)
@@ -61,7 +61,7 @@ class OutgoingMessages {
         
         class func deleteMessage(withId: String, chatRoomId: String) {
            
-            FirebaseReference(.Message).document(FUser.currentId()).collection(chatRoomId).document(withId).delete()
+            FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).document(withId).delete()
         }
         
         class func updateMessage(withId: String, chatRoomId: String, memberIds: [String]) {
@@ -72,13 +72,13 @@ class OutgoingMessages {
             
             for userId in memberIds {
                 
-                FirebaseReference(.Message).document(userId).collection(chatRoomId).document(withId).getDocument { (snapshot, error) in
+                FirebaseReference(.Messages).document(userId).collection(chatRoomId).document(withId).getDocument { (snapshot, error) in
                     
                     guard let snapshot = snapshot  else { return }
                     
                     if snapshot.exists {
                         
-                        FirebaseReference(.Message).document(userId).collection(chatRoomId).document(withId).updateData(values)
+                        FirebaseReference(.Messages).document(userId).collection(chatRoomId).document(withId).updateData(values)
                     }
                 }
             }

@@ -35,6 +35,19 @@ class OutgoingMessage {
         //TODO: UPDATE RECENT
     }
     
+    class func sendMessage(message: LocalMessage, membersIds: [String]) {
+        
+        RealmManager.shared.saveToRealm(message)
+        
+        for memberId in membersIds {
+            
+            print("save message for \(memberId)")
+            FirebaseMessageListener.shared.addMessage(message, memberId: memberId)
+            
+        }
+        
+    }
+    
 }
 
 func sendTextMessage(message: LocalMessage, text: String, memberIds: [String]) {
@@ -43,5 +56,6 @@ func sendTextMessage(message: LocalMessage, text: String, memberIds: [String]) {
     message.type = kTEXT
     
     //send text
+    OutgoingMessage.sendMessage(message: message, membersIds: memberIds)
     
 }

@@ -96,6 +96,7 @@ class NewMessageViewController: MessagesViewController {
     func messageSend(text: String?, photo: UIImage?, video: String?, audio: String?, location: String?, audioDuration: Float = 0.0) {
         
         print("Sending text ", text)
+        OutgoingMessage.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio, location: location, memberIds: [FUser.currentId(), recipientId])
         
     }
 

@@ -16,7 +16,7 @@ enum FCollectionReference: String {
     case User
     case Typing
     case Recent
-    case Message
+    case Messages
     case Group
     case Call
 }
