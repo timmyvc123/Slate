@@ -14,7 +14,7 @@ extension NewMessageViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
         
         if text != "" {
-            print("user is typing...")
+//            print("user is typing...")
         }
     }
     

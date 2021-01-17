@@ -26,6 +26,12 @@ class NewMessageViewController: MessagesViewController {
     let micButton = InputBarButtonItem()
     
     var mkMessages: [MKMessage] = [] //source of messages that are displayed
+    var allLocalMessages: Results<LocalMessage>!
+    
+    let realm = try! Realm()
+    
+    //Listeners
+    var notificationToken: NotificationToken?
     
     //MARK: - Inits
     init(chatId: String, recipientId: String, recipientName: String) {
@@ -47,8 +53,9 @@ class NewMessageViewController: MessagesViewController {
         
         configureMessageCollectionView()
         configureMessageInputBar()
+        
+        loadChats()
 
-        // Do any additional setup after loading the view.
     }
     
     //MARK: - Configuration
@@ -71,14 +78,14 @@ class NewMessageViewController: MessagesViewController {
         messageInputBar.delegate = self
         
         let attachButton = InputBarButtonItem()
-        attachButton.image = UIImage(systemName: "plus")
+        attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
         attachButton.onTouchUpInside {
             item in
             print("Attach button pressed")
         }
         
-        micButton.image = UIImage(systemName: "mic.fill")
+        micButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))
         micButton.setSize(CGSize(width: 30, height: 30), animated: false)
         
         //add gesture recognizer
@@ -91,11 +98,58 @@ class NewMessageViewController: MessagesViewController {
         
     }
     
+    
+    //MARK: - Load Chats
+    
+    private func loadChats() {
+        
+        let predicate = NSPredicate(format: "chatRoomId = %@", chatId)
+        
+        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
+        
+        print("we have \(allLocalMessages.count) messages")
+        notificationToken = allLocalMessages.observe({ (changes: RealmCollectionChange) in
+            
+            switch changes {
+            
+            case .initial:
+                self.insertMessages()
+                self.messagesCollectionView.reloadData()
+                self.messagesCollectionView.scrollToBottom(animated: true)
+            case .update(_, _, let insertions, modifications: _):
+                
+                for index in insertions {
+                    self.insertMessage(self.allLocalMessages[index])
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToBottom(animated: false)
+                }
+            
+            case .error(let error):
+                print("Error on new insertion ", error.localizedDescription)
+            }
+            
+        })
+        
+    }
+    
+    private func insertMessages() {
+        
+        for message in allLocalMessages {
+            insertMessage(message)
+        }
+        
+    }
+    
+    private func insertMessage(_ localMessage: LocalMessage) {
+        let incoming = IncomingMessage(_collectionView: self)
+        self.mkMessages.append(incoming.createMessage(localMessage: localMessage)!)
+        
+    }
+    
     //MARK: - Actions
     
     func messageSend(text: String?, photo: UIImage?, video: String?, audio: String?, location: String?, audioDuration: Float = 0.0) {
         
-        print("Sending text ", text)
         OutgoingMessage.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio, location: location, memberIds: [FUser.currentId(), recipientId])
         
     }
