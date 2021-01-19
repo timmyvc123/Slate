@@ -33,7 +33,7 @@ class MKMessage: NSObject, MessageType {
         self.senderInitals = message.senderinitials
         self.sentDate = message.date
         self.readDate = message.readDate
-        self.incoming = FUser.currentId() != mkSender.senderId //translation
+        self.incoming = FUser.currentId != mkSender.senderId //translation
         
     }
 

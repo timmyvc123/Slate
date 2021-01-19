@@ -61,7 +61,7 @@ class OutgoingMessages {
         
         class func deleteMessage(withId: String, chatRoomId: String) {
            
-            FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).document(withId).delete()
+            FirebaseReference(.Messages).document(FUser.currentId).collection(chatRoomId).document(withId).delete()
         }
         
         class func updateMessage(withId: String, chatRoomId: String, memberIds: [String]) {

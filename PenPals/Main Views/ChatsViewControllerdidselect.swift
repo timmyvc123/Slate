@@ -127,7 +127,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //check if the user is in the array of members that will recieve push notifications
         // if they are the user is not muted
-        if (tempRecent[kMEMBERSTOPUSH] as! [String]).contains(FUser.currentId()) {
+        if (tempRecent[kMEMBERSTOPUSH] as! [String]).contains(FUser.currentId) {
             
             muteTitle = NSLocalizedString("Mute", comment: "")
             mute = true
@@ -186,7 +186,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     //MARK: Create Message types
-    var code = FUser.currentUser()?.language
+    var code = FUser.currentUser?.language
 //    let semaphore = DispatchSemaphore(value: 0)
 //    var translatedText = ""
     
@@ -195,7 +195,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func loadRecentChats() {
         
-        recentListener = FirebaseReference(.Recent).whereField(kUSERID, isEqualTo: FUser.currentId()).addSnapshotListener({ (snapshot, error) in
+        recentListener = FirebaseReference(.Recent).whereField(kUSERID, isEqualTo: FUser.currentId).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -305,11 +305,11 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if mute {
             //unmute user and ut them in unmute array
-            let index = membersToPush.index(of: FUser.currentId())!
+            let index = membersToPush.index(of: FUser.currentId)!
             membersToPush.remove(at: index)
         } else {
             //add members to mute array
-            membersToPush.append(FUser.currentId())
+            membersToPush.append(FUser.currentId)
         }
         
         //save changes to firebase

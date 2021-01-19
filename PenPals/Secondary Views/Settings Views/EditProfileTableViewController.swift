@@ -150,7 +150,7 @@ class EditProfileTableViewController: UITableViewController,  UIImagePickerContr
     
     func setUpUI() {
         
-        let currentUser = FUser.currentUser()!
+        let currentUser = FUser.currentUser!
         
         avatarImageView.isUserInteractionEnabled = true
         

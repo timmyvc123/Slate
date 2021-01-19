@@ -18,7 +18,7 @@ class FirebaseRecentListener {
     func downloadRecentChatsFrmFirestore(completion: @escaping (_ allRecents: [RecentNew]) -> Void) {
         
         //get all recents that sender has
-        FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: FUser.currentId()).addSnapshotListener { (querySnapshot, error) in
+        FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: FUser.currentId).addSnapshotListener { (querySnapshot, error) in
             
             var recentChats: [RecentNew] = []
             
@@ -48,7 +48,7 @@ class FirebaseRecentListener {
     
     func resetRecentCounter(chatroomId: String) {
         
-        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroomId).whereField(kSENDERID, isEqualTo: FUser.currentId()).getDocuments { (querySnapshot, error) in
+        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroomId).whereField(kSENDERID, isEqualTo: FUser.currentId).getDocuments { (querySnapshot, error) in
             
             guard let documents = querySnapshot?.documents else {
                 print("no documents for recent")

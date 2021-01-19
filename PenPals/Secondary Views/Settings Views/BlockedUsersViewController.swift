@@ -67,7 +67,7 @@ class BlockedUsersViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        var tempBlockedUsers = FUser.currentUser()!.blockedUsers
+        var tempBlockedUsers = FUser.currentUser!.blockedUsers
         
         let userIdToUnblock = blockedUsersArray[indexPath.row].objectId
         
@@ -94,11 +94,11 @@ class BlockedUsersViewController: UIViewController, UITableViewDataSource, UITab
     func loadUsers() {
         
         ///access current user
-        if FUser.currentUser()!.blockedUsers.count > 0 {
+        if FUser.currentUser!.blockedUsers.count > 0 {
             
             hud.show(in: self.view)
             
-            getUsersFromFirestore(withIds:  FUser.currentUser()!.blockedUsers) { (allBlockedUsers) in
+            getUsersFromFirestore(withIds:  FUser.currentUser!.blockedUsers) { (allBlockedUsers) in
                 
                 self.hud.dismiss()
                 

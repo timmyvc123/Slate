@@ -95,7 +95,7 @@ func createRecentItem(userId: String, chatRoomId: String, members: [String], wit
         if users != nil && users!.count > 0 {
             
             // check which user you are creating the chat for
-            if userId == FUser.currentId() {
+            if userId == FUser.currentId {
                 //for current user
                 withUser = users!.last!
             } else {
@@ -129,7 +129,7 @@ func restartRecentChat(recent: NSDictionary) {
     
     if recent[kTYPE] as! String == kPRIVATE {
 
-        createRecent(members: recent[kMEMBERSTOPUSH] as! [String], chatRoomId: recent[kCHATROOMID] as! String, withUserUserName: FUser.currentUser()!.firstname, type: kPRIVATE, users: [FUser.currentUser()!], avatarOfGroup: nil)
+        createRecent(members: recent[kMEMBERSTOPUSH] as! [String], chatRoomId: recent[kCHATROOMID] as! String, withUserUserName: FUser.currentUser!.firstname, type: kPRIVATE, users: [FUser.currentUser!], avatarOfGroup: nil)
     }
     
     if recent[kTYPE] as! String == kGROUP {
@@ -168,7 +168,7 @@ func updateRecentItem(recent: NSDictionary, lastMessage: String) {
     //check if there are any unread messages
     var counter = recent[kCOUNTER] as! Int
     
-    if recent[kUSERID] as? String != FUser.currentId() {
+    if recent[kUSERID] as? String != FUser.currentId {
         counter += 1
     }
     
@@ -207,7 +207,7 @@ func clearRecentCounter(chatRoomId: String) {
                 
                 let currentRecent = recent.data() as NSDictionary
                 
-                if currentRecent[kUSERID] as? String == FUser.currentId() {
+                if currentRecent[kUSERID] as? String == FUser.currentId {
                     clearRecentCounterItem(recent: currentRecent)
                 }
             }
@@ -255,7 +255,7 @@ func updateRecent(recentId: String, withValues: [String : Any]) {
 
 func blockUser(userToBlock: FUser) {
     
-    let userId1 = FUser.currentId()
+    let userId1 = FUser.currentId
     let userId2 = userToBlock.objectId
     
     var chatRoomId = ""

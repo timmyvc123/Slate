@@ -15,7 +15,7 @@ func sendPushNotification(memberToPush: [String], message: String) {
     
     getMembersToPush(members: updatedMembers) { (userPushIds) in
         
-        let currentUser = FUser.currentUser()!
+        let currentUser = FUser.currentUser!
         
         var message: String
         
@@ -35,7 +35,7 @@ func removeCurrentUserFromMemberArray(members: [String]) -> [String] {
     // check if same id as current user
     for memberId in members {
         
-        if memberId != FUser.currentId() {
+        if memberId != FUser.currentId {
             updatedMembers.append(memberId)
         }
         

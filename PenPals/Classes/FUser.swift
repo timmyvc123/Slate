@@ -156,21 +156,44 @@ class FUser: Codable, Equatable {
     
     // checks current user logged in and returns their current ID
     
-    class func currentId() -> String {
-        
+    class func currentIdFunc() -> String {
+
         return Auth.auth().currentUser!.uid
     }
-    
-    class func currentUser () -> FUser? {
-        
+
+    class func currentUserFunc() -> FUser? {
+
         if Auth.auth().currentUser != nil {
-            
+
             if let dictionary = UserDefaults.standard.object(forKey: kCURRENTUSER) {
-                
+
                 return FUser.init(_dictionary: dictionary as! NSDictionary)
             }
         }
-        
+
+        return nil
+    }
+    
+    static var currentId: String {
+        return Auth.auth().currentUser!.uid
+    }
+    
+    static var currentUser: FUser? {
+        if Auth.auth().currentUser != nil {
+            
+            if let dictionary = UserDefaults.standard.data(forKey: kCURRENTUSER) {
+                
+                let decoder = JSONDecoder()
+                
+                do {
+                    let userObject = try decoder.decode(FUser.self, from: dictionary)
+                    return userObject
+                } catch {
+                    print("Error decoding user from user defaults ", error.localizedDescription)
+                }
+                
+            }
+        }
         return nil
     }
     
@@ -293,6 +316,8 @@ class FUser: Codable, Equatable {
         
     }
     
+    
+    
 } //end of class funcs
 
 
@@ -387,7 +412,7 @@ func getUsersFromFirestore(withIds: [String], completion: @escaping (_ usersArra
                 count += 1
                 
                 //dont add if its current user
-                if user.objectId != FUser.currentId() {
+                if user.objectId != FUser.currentId {
                     usersArray.append(user)
                 }  
                 
@@ -412,7 +437,7 @@ func updateCurrentUserInFirestore(withValues : [String : Any], completion: @esca
         
         var tempWithValues = withValues
         
-        let currentUserId = FUser.currentId()
+        let currentUserId = FUser.currentId
         
         let updatedAt = dateFormatter().string(from: Date())
         
@@ -445,7 +470,7 @@ func updateCurrentUserInFirestore(withValues : [String : Any], completion: @esca
 
 func updateOneSignalId() {
     
-    if FUser.currentUser() != nil {
+    if FUser.currentUser != nil {
         
         if let pushId = UserDefaults.standard.string(forKey: kPUSHID) {
             setOneSignalId(pushId: pushId)
@@ -479,5 +504,7 @@ func updateCurrentUserOneSignalId(newId: String) {
 //MARK: Chaeck User block status
 
 func checkBlockedStatus(withUser: FUser) -> Bool {
-    return withUser.blockedUsers.contains(FUser.currentId())
+    return withUser.blockedUsers.contains(FUser.currentId)
 }
+
+

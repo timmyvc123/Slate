@@ -22,7 +22,7 @@ class IncomingMessages {
     }
     
     //MARK: Create Message types
-    var code = FUser.currentUser()?.language
+    var code = FUser.currentUser?.language
     let semaphore = DispatchSemaphore(value: 0)
     var translatedText = ""
     
@@ -69,7 +69,7 @@ class IncomingMessages {
             date = Date()
         }
         //getTargetLangCode()
-        let tempID = FUser.currentUser()?.objectId
+        let tempID = FUser.currentUser?.objectId
         var isCurrentUser: Bool = false
         
         if userId == tempID {
@@ -129,7 +129,7 @@ class IncomingMessages {
     
     func getTargetLangCode() {
         if code == nil {
-            code = FUser.currentUser()?.language
+            code = FUser.currentUser?.language
         }
         TranslationManager.shared.targetLanguageCode = code
     }
@@ -226,7 +226,7 @@ class IncomingMessages {
     
     func returnOutgoingStatusForUser(senderId: String) -> Bool {
         
-        return senderId == FUser.currentId()
+        return senderId == FUser.currentId
     }
 
 }

@@ -18,7 +18,7 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     var allUsersGrouped = NSDictionary() as! [String : [FUser]]
     var sectionTitleList : [String] = []
     
-    var currentFriendListIds = FUser.currentUser()!.friendListIds
+    var currentFriendListIds = FUser.currentUser!.friendListIds
     
     var hud = JGProgressHUD(style: .dark)
     
@@ -156,10 +156,10 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
         if !checkBlockedStatus(withUser: user) {
             let messageVC = MessageViewController()
             messageVC.titleName = user.firstname
-            messageVC.membersToPush = [FUser.currentId(), user.objectId]
-            messageVC.memberIds = [FUser.currentId(), user.objectId]
+            messageVC.membersToPush = [FUser.currentId, user.objectId]
+            messageVC.memberIds = [FUser.currentId, user.objectId]
             
-            messageVC.chatRoomId = startPrivateChat(user1: FUser.currentUser()!, user2: user)
+            messageVC.chatRoomId = startPrivateChat(user1: FUser.currentUser!, user2: user)
             messageVC.isGroup = false
             messageVC.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(messageVC, animated: true)
@@ -174,11 +174,11 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     
     func loadTheFriendUsers() {
-        if FUser.currentUser()!.friendListIds.count > 0 {
+        if FUser.currentUser!.friendListIds.count > 0 {
             
             hud.show(in: self.view)
             
-            getUsersFromFirestore(withIds:  FUser.currentUser()!.friendListIds) { (allFriendUsers) in
+            getUsersFromFirestore(withIds:  FUser.currentUser!.friendListIds) { (allFriendUsers) in
                 
                 self.hud.dismiss()
                 
@@ -239,7 +239,7 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
                     
                     // check to make sure the current user in the contacts
                     // is not the same as the current user logged in
-                    if fUser.objectId != FUser.currentId() {
+                    if fUser.objectId != FUser.currentId {
                         
                         //add all the users gathered into the allUsers array
                         self.allUsers.append(fUser)

@@ -28,7 +28,7 @@ class RecentChatTableViewCell: UITableViewCell {
     
     var delegate: RecentChatTableViewCellDelegate?
     
-    var code = FUser.currentUser()?.language
+    var code = FUser.currentUser?.language
     let semaphore = DispatchSemaphore(value: 0)
     var translatedText = ""
     
@@ -133,7 +133,7 @@ class RecentChatTableViewCell: UITableViewCell {
     
     func getTargetLangCode() {
         if code == nil {
-            code = FUser.currentUser()?.language
+            code = FUser.currentUser?.language
         }
         TranslationManager.shared.targetLanguageCode = code
     }

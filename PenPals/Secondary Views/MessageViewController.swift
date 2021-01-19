@@ -127,8 +127,8 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         loadMessages()
         
         //required for jsqmessages or it will crash
-        self.senderId = FUser.currentId()
-        self.senderDisplayName = FUser.currentUser()!.firstname
+        self.senderId = FUser.currentId
+        self.senderDisplayName = FUser.currentUser!.firstname
         
         //UI fix for iphone X
         let constraint = perform(Selector(("toolbarBottomLayoutGuide")))?.takeUnretainedValue() as! NSLayoutConstraint
@@ -171,7 +171,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         let data = messages[indexPath.row]
         
         //if its an outgoing message set text color to white
-        if data.senderId == FUser.currentId() {
+        if data.senderId == FUser.currentId {
             cell.textView?.textColor = .white
         } else {
             cell.textView?.textColor = .black
@@ -197,7 +197,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         let data = messages[indexPath.row]
         
         // if its an outgoing message make the message bubble blue
-        if data.senderId == FUser.currentId() {
+        if data.senderId == FUser.currentId {
             return outgoingBubble
         } else {
             return incomingBubble
@@ -266,7 +266,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         //check if it is the last row
         let data = messages[indexPath.row]
         
-        if data.senderId == FUser.currentId() {
+        if data.senderId == FUser.currentId {
             return kJSQMessagesCollectionViewCellLabelHeightDefault
         } else {
             return 0.0
@@ -410,8 +410,8 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         var selectedUser: FUser?
         
         //if user taps on their own avatar
-        if senderId == FUser.currentId() {
-            selectedUser = FUser.currentUser()
+        if senderId == FUser.currentId {
+            selectedUser = FUser.currentUser
         } else {
             for user in withUsers {
                 //check whos avatar is being tapped
@@ -480,7 +480,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
     func sendMessage(text: String?, date: Date, picture: UIImage?, video: NSURL?) {
         
         var outgoingMessage: OutgoingMessages?
-        let currentUser = FUser.currentUser()!
+        let currentUser = FUser.currentUser!
         
         //text message
         //if there is a text message
@@ -550,7 +550,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         hud.dismiss(afterDelay: 2.0, animated: true)
         
         // to update message status delivered/read
-        updatedChatListener = FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
+        updatedChatListener = FirebaseReference(.Messages).document(FUser.currentId).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -567,7 +567,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         })
         
         //get last 11 messages to display (max amount VC can display
-        FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
+        FirebaseReference(.Messages).document(FUser.currentId).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
             
             guard let snapshot = snapshot else {
                 //initial loading is done (get 11 messages)
@@ -610,7 +610,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         }
         
         //create listener
-        newChatListener = FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ (snapshot, error) in
+        newChatListener = FirebaseReference(.Messages).document(FUser.currentId).collection(chatRoomId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ (snapshot, error) in
             
             guard let snapshot = snapshot else { return }
             
@@ -659,7 +659,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
                
                //check if there is any older messages then the most recent one
                let firstMessageDate = loadedMessages.first![kDATE] as! String
-               FirebaseReference(.Messages).document(FUser.currentId()).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
+               FirebaseReference(.Messages).document(FUser.currentId).collection(chatRoomId).whereField(kDATE, isLessThan: firstMessageDate).getDocuments { (snapshot, error) in
                    
                    //check if we got  snapshot
                    guard let snapshot = snapshot else { return }
@@ -712,7 +712,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
         
         //check if message is incoming or outgoing
         // if incoming
-        if (messageDictionary[kSENDERID] as! String) != FUser.currentId() {
+        if (messageDictionary[kSENDERID] as! String) != FUser.currentId {
             //update message read status
             OutgoingMessages.updateMessage(withId: messageDictionary[kMESSAGEID] as! String, chatRoomId: chatRoomId, memberIds: memberIds)
         }
@@ -829,7 +829,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
                 for data in snapshot.data()! {
                     
                     // if the current user is not typing
-                    if data.key != FUser.currentId() {
+                    if data.key != FUser.currentId {
                         
                         let typing = data.value as! Bool
                         self.showTypingIndicator = typing
@@ -843,7 +843,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
                 
             } else {
                 //if there is no snapshot set typing indicator to false
-                FirebaseReference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
+                FirebaseReference(.Typing).document(self.chatRoomId).setData([FUser.currentId : false])
             }
             
         })
@@ -867,7 +867,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
     }
     
     func typingCounterSave(typing: Bool) {
-        FirebaseReference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
+        FirebaseReference(.Typing).document(chatRoomId).updateData([FUser.currentId : typing])
         
     }
     
@@ -1001,7 +1001,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
             collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSize(width: 30, height: 30)
             
             //get avatar of current user
-            avatarImageFrom(fUser: FUser.currentUser()!)
+            avatarImageFrom(fUser: FUser.currentUser!)
             
             //get avatar for everyone in message
             for user in withUsers {
@@ -1154,7 +1154,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
     func isIncoming(messageDictionary: NSDictionary) -> Bool {
         
         // if current message is coming from the logged in user it is outgoing
-        if FUser.currentId() == messageDictionary[kSENDERID] as! String {
+        if FUser.currentId == messageDictionary[kSENDERID] as! String {
             return false
         } else {
             return true

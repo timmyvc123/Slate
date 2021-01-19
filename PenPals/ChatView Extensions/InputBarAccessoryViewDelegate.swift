@@ -16,6 +16,8 @@ extension NewMessageViewController: InputBarAccessoryViewDelegate {
         if text != "" {
 //            print("user is typing...")
         }
+        
+        updateMicButtonStatus(show: text == "")
     }
     
     

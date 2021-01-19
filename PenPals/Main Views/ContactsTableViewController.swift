@@ -19,7 +19,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     var allUsersGrouped = NSDictionary() as! [String : [FUser]]
     var sectionTitleList : [String] = []
     
-    var currentFriendListIds = FUser.currentUser()!.friendListIds
+    var currentFriendListIds = FUser.currentUserFunc()!.friendListIds
     
     var hud = JGProgressHUD(style: .dark)
     
@@ -65,7 +65,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     
     @IBAction func refreshController(_ sender: UIRefreshControl) {
         
-        getUsersFromFirestore(withIds:  FUser.currentUser()!.friendListIds) { (allFriendUsers) in
+        getUsersFromFirestore(withIds:  FUser.currentUser!.friendListIds) { (allFriendUsers) in
             
             self.hud.dismiss()
             
@@ -304,7 +304,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
                     
                     // check to make sure the current user in the contacts
                     // is not the same as the current user logged in
-                    if fUser.objectId != FUser.currentId() {
+                    if fUser.objectId != FUser.currentId {
                         if fUser.phoneNumber == phoneNum {
                             print("number added....")
                             self.isnumberNotFound = false
@@ -388,11 +388,11 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     }
     
     func loadTheFriendUsers() {
-        if FUser.currentUser()!.friendListIds.count > 0 {
+        if FUser.currentUserFunc()!.friendListIds.count > 0 {
             
             hud.show(in: self.view)
             
-            getUsersFromFirestore(withIds:  FUser.currentUser()!.friendListIds) { (allFriendUsers) in
+            getUsersFromFirestore(withIds:  FUser.currentUserFunc()!.friendListIds) { (allFriendUsers) in
                 
                 self.hud.dismiss()
                 
@@ -452,7 +452,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
                     
                     // check to make sure the current user in the contacts
                     // is not the same as the current user logged in
-                    if fUser.objectId != FUser.currentId() {
+                    if fUser.objectId != FUser.currentId {
                         
                         //add all the users gathered into the allUsers array
                         self.allUsers.append(fUser)

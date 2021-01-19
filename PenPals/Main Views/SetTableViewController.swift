@@ -30,14 +30,14 @@ class SetTableViewController: UITableViewController {
     var avatarSwitchStatus = false
     var firstLoad: Bool?
     var translatedText = ""
-    var code = FUser.currentUser()?.language
+    var code = FUser.currentUser?.language
     
     var hud = JGProgressHUD(style: .dark)
     
     override func viewDidAppear(_ animated: Bool) {
         
         // if we have a current user setUpUI
-        if FUser.currentUser() != nil {
+        if FUser.currentUser != nil {
             setUpUI()
             loadUserDefaults()
         }
@@ -239,7 +239,7 @@ class SetTableViewController: UITableViewController {
     
     func setUpUI() {
         
-        let currentUser = FUser.currentUser()!
+        let currentUser = FUser.currentUser!
         fullNamesLabel.text = currentUser.fullname
         
         if currentUser.avatar != "" {
@@ -271,7 +271,7 @@ class SetTableViewController: UITableViewController {
         userDefaults.synchronize()
         
         //delete from firebase
-        FirebaseReference(.User).document(FUser.currentId()).delete()
+        FirebaseReference(.User).document(FUser.currentId).delete()
         
         FUser.deleteUser { (error) in
             

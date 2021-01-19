@@ -55,7 +55,7 @@ class ProfileViewTableViewController: UITableViewController {
 //            messageVC.hidesBottomBarWhenPushed = true
 //            self.navigationController?.pushViewController(messageVC, animated: true)
             
-            let chatId = startChat(user1: FUser.currentUser()!, user2: user!)
+            let chatId = startChat(user1: FUser.currentUserFunc()!, user2: user!)
             
             let privateChatView = NewMessageViewController(chatId: chatId, recipientId: user!.objectId, recipientName: user!.fullname)
             
@@ -76,7 +76,7 @@ class ProfileViewTableViewController: UITableViewController {
     
     @IBAction func blockUserButtonPressed(_ sender: Any) {
         
-        var currentBlockedIds = FUser.currentUser()!.blockedUsers
+        var currentBlockedIds = FUser.currentUser!.blockedUsers
         if currentBlockedIds.contains(user!.objectId) {
             
             // find the index of the currently blocked user in the blockedUsers array
@@ -103,7 +103,7 @@ class ProfileViewTableViewController: UITableViewController {
     
     @IBAction func removeUserButtonPressed(_ sender: Any) {
         
-        var currentFriends = FUser.currentUser()!.friendListIds
+        var currentFriends = FUser.currentUser!.friendListIds
                
                if currentFriends.contains(user!.objectId) {
                    isFriendRemovedSuccessfully = true
@@ -198,7 +198,7 @@ class ProfileViewTableViewController: UITableViewController {
     func updateBlockStatus() {
         
         // if it is not the current user logged in
-        if user!.objectId != FUser.currentId() {
+        if user!.objectId != FUser.currentId {
             blockButtonOutlet.isHidden = false
             messageButtonOutlet.isHidden = false
         } else {
@@ -207,7 +207,7 @@ class ProfileViewTableViewController: UITableViewController {
         }
         
         // if the user is in the current user's array of blocked users
-        if FUser.currentUser()!.blockedUsers.contains(user!.objectId) {
+        if FUser.currentUserFunc()!.blockedUsers.contains(user!.objectId) {
             blockButtonOutlet.setTitle(NSLocalizedString("Unblock User", comment: ""), for: .normal)
         } else {
             blockButtonOutlet.setTitle(NSLocalizedString("Block User", comment: ""), for: .normal)
@@ -217,7 +217,7 @@ class ProfileViewTableViewController: UITableViewController {
     func updateRemoveStatus() {
         
         // if it is not the current user logged in
-        if user!.objectId != FUser.currentId() {
+        if user!.objectId != FUser.currentId {
             removeButton.isHidden = false
             messageButtonOutlet.isHidden = false
         } else {
@@ -226,7 +226,7 @@ class ProfileViewTableViewController: UITableViewController {
         }
         
         // if the user is in the current user's array of blocked users
-        if FUser.currentUser()!.friendListIds.contains(user!.objectId) {
+        if FUser.currentUserFunc()!.friendListIds.contains(user!.objectId) {
             removeButton.setTitle(NSLocalizedString("Remove User", comment: ""), for: .normal)
         } else {
             removeButton.setTitle(NSLocalizedString("Removed", comment: ""), for: .normal)

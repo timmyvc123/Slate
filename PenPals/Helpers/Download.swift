@@ -22,7 +22,7 @@ func uploadImage(image: UIImage, chatRoomId: String, view: UIView, completion: @
     let dateString = dateFormatter().string(from: Date())
     
     //file path for each image sent
-    let photoFileName = "PictureMessages/" + FUser.currentId() + "/" + chatRoomId + "/" + dateString + ".jpg"
+    let photoFileName = "PictureMessages/" + FUser.currentId + "/" + chatRoomId + "/" + dateString + ".jpg"
     
     let storageRef = storage.reference(forURL: kFILEREFERENCE).child(photoFileName)
     
@@ -134,7 +134,7 @@ func uploadVideo(video: NSData, chatRoomId: String, view: UIView, completion: @e
     
     let dateString = dateFormatter().string(from: Date())
     
-    let videoFileName = "VideoMessages/" + FUser.currentId() + "/" + chatRoomId + "/" + dateString + ".mov"
+    let videoFileName = "VideoMessages/" + FUser.currentId + "/" + chatRoomId + "/" + dateString + ".mov"
     
     let storageRef = storage.reference(forURL: kFILEREFERENCE).child(videoFileName)
     
