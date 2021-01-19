@@ -79,6 +79,7 @@ class NewMessageViewController: MessagesViewController {
         updateTypingIndicator(true)
         
         loadChats()
+        listenForNewChats()
 
     }
     
@@ -192,9 +193,7 @@ class NewMessageViewController: MessagesViewController {
     }
     
     private func listenForNewChats() {
-        
-        
-        
+        FirebaseMessageListener.shared.listenForNewChats(FUser.currentId, collectionId: chatId, lastMessageDate: lastMessageDate())
     }
     
     private func checkForOldChats() {
@@ -234,6 +233,15 @@ class NewMessageViewController: MessagesViewController {
     func updateTypingIndicator(_ show: Bool) {
         
         subTitleLabel.text = show ? "Typing.." : ""
+    }
+    
+    //MARK - Helpers
+    
+    private func lastMessageDate() -> Date {
+        
+        let lastmessageDate = allLocalMessages.last?.date ?? Date()
+        return Calendar.current.date(byAdding: .second, value: 1, to: lastmessageDate) ?? lastmessageDate
+        
     }
 
 }
