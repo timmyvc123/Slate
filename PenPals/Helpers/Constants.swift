@@ -74,8 +74,6 @@ public let kBACKGROUNDIMAGE = "backgroundImage"
 public let kSHOWAVATAR = "showAvatar"
 public let kPASSWORDPROTECT = "passwordProtect"
 public let kFIRSTRUN = "firstRun"
-// # of messages displayed at time
-public let kNUMBEROFMESSAGES = 10
 // duration of video or audio message
 public let kMAXDURATION = 120.0
 public let kAUDIOMAXDURATION = 120.0
@@ -115,6 +113,7 @@ public let kCONTACTID = "contactId"
 //message types
 public let kPICTURE = "picture"
 public let kTEXT = "text"
+public let kPHOTO = "photo"
 public let kVIDEO = "video"
 public let kAUDIO = "audio"
 public let kLOCATION = "location"
@@ -130,8 +129,7 @@ public let kREADDATE = "readDate"
 public let kDELETED = "deleted"
 public let kSENT = "Sent"
 public let kREAD = "Read"
-
-
+public let kNUMBEROFMESSAGES = 12
 
 //push
 public let kDEVICEID = "deviceId"

@@ -66,6 +66,8 @@
 		2482A4BA25AE6FEB00BE73C3 /* MessageKitDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482A4B925AE6FEB00BE73C3 /* MessageKitDefaults.swift */; };
 		2482A4BE25AE72FF00BE73C3 /* MKMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482A4BD25AE72FF00BE73C3 /* MKMessage.swift */; };
 		2482A4C225AE741000BE73C3 /* LocalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482A4C125AE741000BE73C3 /* LocalMessage.swift */; };
+		2496017E25B7A6D40099563D /* FirebaseTypingListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2496017D25B7A6D40099563D /* FirebaseTypingListener.swift */; };
+		2496018225B7F10F0099563D /* PhotoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2496018125B7F10F0099563D /* PhotoMessage.swift */; };
 		24C6E94C25B16F54003E1491 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C6E94B25B16F54003E1491 /* RealmManager.swift */; };
 		24C6E95025B1716F003E1491 /* OutgoingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C6E94F25B1716F003E1491 /* OutgoingMessage.swift */; };
 		24E36AF625B2C78E0090994B /* FirebaseMessageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E36AF525B2C78D0090994B /* FirebaseMessageListener.swift */; };
@@ -187,6 +189,8 @@
 		2482A4B925AE6FEB00BE73C3 /* MessageKitDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitDefaults.swift; sourceTree = "<group>"; };
 		2482A4BD25AE72FF00BE73C3 /* MKMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMessage.swift; sourceTree = "<group>"; };
 		2482A4C125AE741000BE73C3 /* LocalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMessage.swift; sourceTree = "<group>"; };
+		2496017D25B7A6D40099563D /* FirebaseTypingListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTypingListener.swift; sourceTree = "<group>"; };
+		2496018125B7F10F0099563D /* PhotoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMessage.swift; sourceTree = "<group>"; };
 		24C6E94B25B16F54003E1491 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		24C6E94F25B1716F003E1491 /* OutgoingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessage.swift; sourceTree = "<group>"; };
 		24E36AF525B2C78D0090994B /* FirebaseMessageListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageListener.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 				2482A4BD25AE72FF00BE73C3 /* MKMessage.swift */,
 				24C6E94F25B1716F003E1491 /* OutgoingMessage.swift */,
 				2480974325B40598000ED370 /* IncomingMessage.swift */,
+				2496018125B7F10F0099563D /* PhotoMessage.swift */,
 			);
 			path = "New Helpers";
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				221E066B23ED5348001A9F67 /* CollectionReference.swift */,
+				2496017D25B7A6D40099563D /* FirebaseTypingListener.swift */,
 				24E81D4625A4338F00C62627 /* FileStorage.swift */,
 				247ABF1A25A4FE5A007C537B /* FirebaseUserListener.swift */,
 				247ABF1E25A4FE6C007C537B /* FirebaseRecentListener.swift */,
@@ -633,6 +639,7 @@
 				221E066A23ED4FAF001A9F67 /* Constants.swift in Sources */,
 				225D8D7F23ED4584007E0273 /* WelcomeViewController.swift in Sources */,
 				2482A4AA25AE69D000BE73C3 /* MessageCellDelegate.swift in Sources */,
+				2496017E25B7A6D40099563D /* FirebaseTypingListener.swift in Sources */,
 				220CCD5F245101EB000A35AA /* T&CViewController.swift in Sources */,
 				221E067123ED5A97001A9F67 /* RegisterViewController.swift in Sources */,
 				22166D252431B707007BA45E /* OutgoingMessages.swift in Sources */,
@@ -656,6 +663,7 @@
 				220CCD572450C399000A35AA /* SetTableViewController.swift in Sources */,
 				221A705D2534F903004AE1AD /* PushNotifications.swift in Sources */,
 				220E9DB0243EAECD0085D25C /* TranslationApi.swift in Sources */,
+				2496018225B7F10F0099563D /* PhotoMessage.swift in Sources */,
 				220FAABD24523515000C8D78 /* ContactsTableViewController.swift in Sources */,
 				227B4C772412320500A0C235 /* ChatsViewControllerdidselect.swift in Sources */,
 				247CBF5B25A42FAF00598FA5 /* NewRecentTableViewCell.swift in Sources */,

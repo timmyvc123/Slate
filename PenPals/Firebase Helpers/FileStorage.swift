@@ -17,7 +17,7 @@ import ProgressHUD
 
 class FileStorage {
     
-//    let storage = Storage.storage()
+    //    let storage = Storage.storage()
     
     //MARK: Images
     
@@ -61,7 +61,7 @@ class FileStorage {
     class func downloadImage(imageUrl: String, completion: @escaping (_ image: UIImage?) -> Void) {
         
         let imageFileName = fileNameFrom(fileUrl: imageUrl)
-
+        
         if fileExistsAtPath(path: imageFileName) {
             //get file locally
             
@@ -75,7 +75,7 @@ class FileStorage {
             
         } else {
             //download from Firebase
-
+            
             if imageUrl != "" {
                 
                 let documentUrl = URL(string: imageUrl)
@@ -106,16 +106,83 @@ class FileStorage {
         }
     }
     
+    
+    //MARK: - Video
+    class func uploadVideo(_ video: NSData, directory: String, completion: @escaping (_ videoLink: String?) -> Void) {
+        
+        let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
+        
+        var task: StorageUploadTask!
+        
+        task = storageRef.putData(video as Data, metadata: nil, completion: { (metadata, error) in
+            
+            task.removeAllObservers()
+            ProgressHUD.dismiss()
+            
+            if error != nil {
+                print("error uploading video \(error!.localizedDescription)")
+                return
+            }
+            
+            storageRef.downloadURL { (url, error) in
+                
+                guard let downloadUrl = url  else {
+                    completion(nil)
+                    return
+                }
+                
+                completion(downloadUrl.absoluteString)
+            }
+        })
+        
+        
+        task.observe(StorageTaskStatus.progress) { (snapshot) in
+            
+            let progress = snapshot.progress!.completedUnitCount / snapshot.progress!.totalUnitCount
+            ProgressHUD.showProgress(CGFloat(progress))
+        }
+    }
+    
+    class func downloadVideo(videoLink: String, completion: @escaping (_ isReadyToPlay: Bool, _ videoFileName: String) -> Void) {
+        
+        let videoUrl = URL(string: videoLink)
+        let videoFileName = fileNameFrom(fileUrl: videoLink) + ".mov"
+        
+        if fileExistsAtPath(path: videoFileName) {
+            
+            completion(true, videoFileName)
+            
+        } else {
+            
+            let downloadQueue = DispatchQueue(label: "VideoDownloadQueue")
+            
+            downloadQueue.async {
+                
+                let data = NSData(contentsOf: videoUrl!)
+                
+                if data != nil {
+                    
+                    //Save locally
+                    FileStorage.saveFileLocally(fileData: data!, fileName: videoFileName)
+                    
+                    DispatchQueue.main.async {
+                        completion(true, videoFileName)
+                    }
+                    
+                } else {
+                    print("no document in database")
+                }
+            }
+        }
+    }
+    
+    
     //MARK: Save Locally
     class func saveFileLocally(fileData: NSData, fileName: String) {
         
         let docUrl = getDocumentsURL().appendingPathComponent(fileName, isDirectory: false)
         fileData.write(to: docUrl, atomically: true)
-        
-        
     }
-    
-    
     
 }
 

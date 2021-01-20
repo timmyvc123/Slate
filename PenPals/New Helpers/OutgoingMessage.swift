@@ -9,10 +9,11 @@
 import Foundation
 import UIKit
 import FirebaseFirestoreSwift
+import Gallery
 
 class OutgoingMessage {
     
-    class func send(chatId: String, text: String?, photo: UIImage?, video: String?, audio: String?, audioDuration: Float = 0.0, location: String?, memberIds: [String]) {
+    class func send(chatId: String, text: String?, photo: UIImage?, video: Video?, audio: String?, audioDuration: Float = 0.0, location: String?, memberIds: [String]) {
         
         let currentUser = FUser.currentUserFunc()!
         
@@ -26,13 +27,23 @@ class OutgoingMessage {
         message.status = kSENT
         
         if text != nil {
-            
             //send text message
             sendTextMessage(message: message, text: text!, memberIds: memberIds)
         }
         
+        if photo != nil {
+            //send photo message
+            sendPictureMessage(message: message, photo: photo!, memberIds: memberIds)
+        }
+        
+        if video != nil {
+            //send video message
+            sendVideoMessage(message: message, video: video!, memberIds: memberIds)
+        }
+        
         //TODO: SEND PUSH NOTIFICATION
-        //TODO: UPDATE RECENT
+        //UPDATE RECENT
+        FirebaseRecentListener.shared.updateRecents(chatRomId: chatId, lastMessage: message.message)
     }
     
     class func sendMessage(message: LocalMessage, membersIds: [String]) {
@@ -43,11 +54,8 @@ class OutgoingMessage {
             
             print("save message for \(memberId)")
             FirebaseMessageListener.shared.addMessage(message, memberId: memberId)
-            
         }
-        
     }
-    
 }
 
 func sendTextMessage(message: LocalMessage, text: String, memberIds: [String]) {
@@ -58,4 +66,66 @@ func sendTextMessage(message: LocalMessage, text: String, memberIds: [String]) {
     //send text
     OutgoingMessage.sendMessage(message: message, membersIds: memberIds)
     
+}
+
+func sendPictureMessage(message: LocalMessage, photo: UIImage, memberIds: [String]) {
+
+    message.message = "Picture Message"
+    message.type = kPHOTO
+    
+    let fileName = Date().stringDate()
+    let fileDirectory = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
+    
+    FileStorage.saveFileLocally(fileData: photo.jpegData(compressionQuality: 0.6)! as NSData, fileName: fileName)
+    
+    FileStorage.uploadImage(photo, directory: fileDirectory) { (imageURL) in
+        
+        if imageURL != nil {
+            
+            message.pictureUrl = imageURL!
+            
+            OutgoingMessage.sendMessage(message: message, membersIds: memberIds)
+        }
+    }
+}
+
+func sendVideoMessage(message: LocalMessage, video: Video, memberIds: [String]) {
+    
+    message.message = "Video Message"
+    message.type = kVIDEO
+    
+    let fileName = Date().stringDate()
+    let thumbnailDirectoy = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
+    let videoDirectory = "MediaMessages/Video/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".mov"
+    
+    let editor = VideoEditor()
+    
+    editor.process(video: video) { (processedVideo, videoUrl) in
+        
+        if let tempPath = videoUrl {
+            
+            let thumbnail = videoThumbnail(video: tempPath)
+            
+            FileStorage.saveFileLocally(fileData: thumbnail.jpegData(compressionQuality: 0.7)! as NSData, fileName: fileName)
+            
+            FileStorage.uploadImage(thumbnail, directory: thumbnailDirectoy) { (imageLink) in
+                
+                if imageLink != nil {
+                    
+                    let videoData = NSData(contentsOfFile: tempPath.path)
+                    
+                    FileStorage.saveFileLocally(fileData: videoData!, fileName: fileName + ".mov")
+                    
+                    FileStorage.uploadVideo(videoData!, directory: videoDirectory) { (videoLink) in
+                        
+                        message.pictureUrl = imageLink ?? ""
+                        message.videoUrl = videoLink ?? ""
+                        
+                        OutgoingMessage.sendMessage(message: message, membersIds: memberIds)
+                    }
+                }
+                
+            }
+        }
+    }
 }

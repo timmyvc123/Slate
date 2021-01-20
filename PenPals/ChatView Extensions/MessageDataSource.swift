@@ -32,17 +32,15 @@ extension NewMessageViewController: MessagesDataSource {
         
         if indexPath.section % 3 == 0 {
             
-            let showLoadMore = false
-            let text = showLoadMore ? "Pull to load more" : MessageKitDateFormatter.shared.string(from: message.sentDate) //localise
+            let showLoadMore = (indexPath.section == 0) && (allLocalMessages.count > displayingMessagesCount)
+            let text = showLoadMore ? "Pull to Load More" : MessageKitDateFormatter.shared.string(from: message.sentDate)
             let font = showLoadMore ? UIFont.systemFont(ofSize: 13) : UIFont.boldSystemFont(ofSize: 10)
             let color = showLoadMore ? UIColor.systemBlue : UIColor.darkGray
             
             return NSAttributedString(string: text, attributes: [.font : font, .foregroundColor : color])
-            
         }
         
         return nil
-        
     }
     
     //MARK: - Cell bottom labels
