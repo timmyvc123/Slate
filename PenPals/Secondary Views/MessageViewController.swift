@@ -383,7 +383,7 @@ class MessageViewController: JSQMessagesViewController, UIImagePickerControllerD
             //opening video
             // find the correct message tapped
             let message = messages[indexPath.row]
-            let mediaItem = message.media as! VideoMessage
+            let mediaItem = message.media as! VideoMessages
             //create an avplayer
             let player = AVPlayer(url: mediaItem.fileURL! as URL)
             //open video to its own avplayer view controller

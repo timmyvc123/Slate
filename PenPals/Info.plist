@@ -21,13 +21,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Penpals would like to access your media library</string>
+	<string>Slate would like to access your media library</string>
 	<key>NSCameraUsageDescription</key>
-	<string>PenPals would like to access your camera</string>
+	<string>Slate would like to access your camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>PenPals would like to access your contacts</string>
+	<string>Slate would like to access your contacts</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Penpals would like to access your photo library</string>
+	<string>Slate would like to access your photo library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Slate would like to use your location</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

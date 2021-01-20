@@ -194,7 +194,7 @@ class IncomingMessages {
         let videoURL = NSURL(fileURLWithPath: messageDictionary[kVIDEO] as! String)
         
         
-        let mediaItem = VideoMessage(withFileURL: videoURL, maskOutgoing: returnOutgoingStatusForUser(senderId: userId!))
+        let mediaItem = VideoMessages(withFileURL: videoURL, maskOutgoing: returnOutgoingStatusForUser(senderId: userId!))
         
         
         //download video

@@ -10,7 +10,7 @@
 		2209086A2453C0F200FD504A /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220908692453C0F200FD504A /* StartScreenViewController.swift */; };
 		220AA69A2435A65E00833D24 /* PicturesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AA6992435A65E00833D24 /* PicturesCollectionViewCell.swift */; };
 		220AC338242C0574009FE461 /* RecentChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AC337242C0574009FE461 /* RecentChatTableViewCell.swift */; };
-		220B6665243446D200081647 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B6664243446D200081647 /* VideoMessage.swift */; };
+		220B6665243446D200081647 /* VideoMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B6664243446D200081647 /* VideoMessages.swift */; };
 		220B98C62433E89400E6BD3B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B98C52433E89400E6BD3B /* Camera.swift */; };
 		220B98C82433EE4200E6BD3B /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B98C72433EE4200E6BD3B /* Download.swift */; };
 		220B98CA24340A5F00E6BD3B /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220B98C924340A5F00E6BD3B /* PhotoMediaItem.swift */; };
@@ -49,11 +49,16 @@
 		227B4C772412320500A0C235 /* ChatsViewControllerdidselect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227B4C762412320500A0C235 /* ChatsViewControllerdidselect.swift */; };
 		229C8653242B0A8000088609 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C8652242B0A8000088609 /* UsersTableViewController.swift */; };
 		229C8658242B322400088609 /* Recent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C8657242B322400088609 /* Recent.swift */; };
+		244CF90925B8B7CD00F401BB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF90825B8B7CD00F401BB /* LocationManager.swift */; };
+		244CF90F25B8BD0800F401BB /* LocationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF90E25B8BD0800F401BB /* LocationMessage.swift */; };
+		244CF91325B8C4DF00F401BB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF91225B8C4DF00F401BB /* MapViewController.swift */; };
+		244CF91725B8C6AD00F401BB /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF91625B8C6AD00F401BB /* MapAnnotation.swift */; };
 		246583AB254FF82E00F5C709 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 246583AA254FF82E00F5C709 /* GoogleService-Info.plist */; };
 		247278EC25A1A6B700A47983 /* RecentNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247278EB25A1A6B700A47983 /* RecentNew.swift */; };
 		247ABF1525A4FC6A007C537B /* StartChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247ABF1425A4FC6A007C537B /* StartChat.swift */; };
 		247ABF1B25A4FE5A007C537B /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247ABF1A25A4FE5A007C537B /* FirebaseUserListener.swift */; };
 		247ABF1F25A4FE6C007C537B /* FirebaseRecentListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247ABF1E25A4FE6C007C537B /* FirebaseRecentListener.swift */; };
+		247CA2C325B8A8560047E932 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CA2C225B8A8560047E932 /* VideoMessage.swift */; };
 		247CBF5B25A42FAF00598FA5 /* NewRecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CBF5A25A42FAF00598FA5 /* NewRecentTableViewCell.swift */; };
 		2480974425B40598000ED370 /* IncomingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480974325B40598000ED370 /* IncomingMessage.swift */; };
 		2482A46625AE2F1D00BE73C3 /* MessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2482A46525AE2F1D00BE73C3 /* MessagesTableViewController.swift */; };
@@ -106,7 +111,7 @@
 		220908692453C0F200FD504A /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		220AA6992435A65E00833D24 /* PicturesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionViewCell.swift; sourceTree = "<group>"; };
 		220AC337242C0574009FE461 /* RecentChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChatTableViewCell.swift; sourceTree = "<group>"; };
-		220B6664243446D200081647 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		220B6664243446D200081647 /* VideoMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessages.swift; sourceTree = "<group>"; };
 		220B98C52433E89400E6BD3B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		220B98C72433EE4200E6BD3B /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		220B98C924340A5F00E6BD3B /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
@@ -172,11 +177,16 @@
 		228E05132509AE6100C09E79 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		229C8652242B0A8000088609 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		229C8657242B322400088609 /* Recent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recent.swift; sourceTree = "<group>"; };
+		244CF90825B8B7CD00F401BB /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		244CF90E25B8BD0800F401BB /* LocationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMessage.swift; sourceTree = "<group>"; };
+		244CF91225B8C4DF00F401BB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		244CF91625B8C6AD00F401BB /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		246583AA254FF82E00F5C709 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		247278EB25A1A6B700A47983 /* RecentNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNew.swift; sourceTree = "<group>"; };
 		247ABF1425A4FC6A007C537B /* StartChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChat.swift; sourceTree = "<group>"; };
 		247ABF1A25A4FE5A007C537B /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		247ABF1E25A4FE6C007C537B /* FirebaseRecentListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRecentListener.swift; sourceTree = "<group>"; };
+		247CA2C225B8A8560047E932 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		247CBF5A25A42FAF00598FA5 /* NewRecentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecentTableViewCell.swift; sourceTree = "<group>"; };
 		2480974325B40598000ED370 /* IncomingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessage.swift; sourceTree = "<group>"; };
 		2482A46525AE2F1D00BE73C3 /* MessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +247,7 @@
 				220E9DAD243EAE7A0085D25C /* Translation Classes */,
 				220B98C52433E89400E6BD3B /* Camera.swift */,
 				220B98C924340A5F00E6BD3B /* PhotoMediaItem.swift */,
-				220B6664243446D200081647 /* VideoMessage.swift */,
+				220B6664243446D200081647 /* VideoMessages.swift */,
 				221A705C2534F903004AE1AD /* PushNotifications.swift */,
 			);
 			path = Classes;
@@ -368,6 +378,7 @@
 				2266F00E2537A350005FB84A /* ForgotPasswordViewController.swift */,
 				229C8652242B0A8000088609 /* UsersTableViewController.swift */,
 				224E855C2427007C001FF692 /* ProfileViewTableViewController.swift */,
+				244CF91225B8C4DF00F401BB /* MapViewController.swift */,
 				225E0361250969A2004817F5 /* GalleryCollectionViewController.swift */,
 				220FAABB245234E8000C8D78 /* Settings Views */,
 			);
@@ -384,9 +395,21 @@
 				2482A4BD25AE72FF00BE73C3 /* MKMessage.swift */,
 				24C6E94F25B1716F003E1491 /* OutgoingMessage.swift */,
 				2480974325B40598000ED370 /* IncomingMessage.swift */,
-				2496018125B7F10F0099563D /* PhotoMessage.swift */,
+				244CF90825B8B7CD00F401BB /* LocationManager.swift */,
+				244CF91625B8C6AD00F401BB /* MapAnnotation.swift */,
+				247CA2C125B8A83B0047E932 /* Media Messages */,
 			);
 			path = "New Helpers";
+			sourceTree = "<group>";
+		};
+		247CA2C125B8A83B0047E932 /* Media Messages */ = {
+			isa = PBXGroup;
+			children = (
+				2496018125B7F10F0099563D /* PhotoMessage.swift */,
+				247CA2C225B8A8560047E932 /* VideoMessage.swift */,
+				244CF90E25B8BD0800F401BB /* LocationMessage.swift */,
+			);
+			path = "Media Messages";
 			sourceTree = "<group>";
 		};
 		247CBF8725A432F700598FA5 /* Firebase Helpers */ = {
@@ -627,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2482A4B225AE69E900BE73C3 /* MessageLayoutDelegate.swift in Sources */,
+				247CA2C325B8A8560047E932 /* VideoMessage.swift in Sources */,
 				2482A4B625AE69FD00BE73C3 /* InputBarAccessoryViewDelegate.swift in Sources */,
 				220CCD5D2450F1BC000A35AA /* BackgroundCollectionViewCell.swift in Sources */,
 				2482A4C225AE741000BE73C3 /* LocalMessage.swift in Sources */,
@@ -638,6 +662,7 @@
 				220AA69A2435A65E00833D24 /* PicturesCollectionViewCell.swift in Sources */,
 				221E066A23ED4FAF001A9F67 /* Constants.swift in Sources */,
 				225D8D7F23ED4584007E0273 /* WelcomeViewController.swift in Sources */,
+				244CF91325B8C4DF00F401BB /* MapViewController.swift in Sources */,
 				2482A4AA25AE69D000BE73C3 /* MessageCellDelegate.swift in Sources */,
 				2496017E25B7A6D40099563D /* FirebaseTypingListener.swift in Sources */,
 				220CCD5F245101EB000A35AA /* T&CViewController.swift in Sources */,
@@ -657,11 +682,13 @@
 				220B98C62433E89400E6BD3B /* Camera.swift in Sources */,
 				221E066823ED4F61001A9F67 /* FUser.swift in Sources */,
 				247ABF1F25A4FE6C007C537B /* FirebaseRecentListener.swift in Sources */,
+				244CF90F25B8BD0800F401BB /* LocationMessage.swift in Sources */,
 				247278EC25A1A6B700A47983 /* RecentNew.swift in Sources */,
 				2482A46625AE2F1D00BE73C3 /* MessagesTableViewController.swift in Sources */,
 				229C8658242B322400088609 /* Recent.swift in Sources */,
 				220CCD572450C399000A35AA /* SetTableViewController.swift in Sources */,
 				221A705D2534F903004AE1AD /* PushNotifications.swift in Sources */,
+				244CF91725B8C6AD00F401BB /* MapAnnotation.swift in Sources */,
 				220E9DB0243EAECD0085D25C /* TranslationApi.swift in Sources */,
 				2496018225B7F10F0099563D /* PhotoMessage.swift in Sources */,
 				220FAABD24523515000C8D78 /* ContactsTableViewController.swift in Sources */,
@@ -673,6 +700,7 @@
 				247ABF1B25A4FE5A007C537B /* FirebaseUserListener.swift in Sources */,
 				225E0362250969A2004817F5 /* GalleryCollectionViewController.swift in Sources */,
 				24E36AF625B2C78E0090994B /* FirebaseMessageListener.swift in Sources */,
+				244CF90925B8B7CD00F401BB /* LocationManager.swift in Sources */,
 				2482A46A25AE3AA800BE73C3 /* NewMessageViewController.swift in Sources */,
 				2482A49D25AE699800BE73C3 /* MessageDataSource.swift in Sources */,
 				220CCD592450E4AD000A35AA /* BlockedUsersViewController.swift in Sources */,
@@ -683,7 +711,7 @@
 				2482A4BE25AE72FF00BE73C3 /* MKMessage.swift in Sources */,
 				2262B8302538DA11001D68E7 /* NSAttributedSTringExtension.swift in Sources */,
 				22166D272431DBA1007BA45E /* IncomingMessages.swift in Sources */,
-				220B6665243446D200081647 /* VideoMessage.swift in Sources */,
+				220B6665243446D200081647 /* VideoMessages.swift in Sources */,
 				24E81D4B25A43A9E00C62627 /* GlobalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -883,6 +911,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RHJFMU3K87;
 				INFOPLIST_FILE = PenPals/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -904,6 +933,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RHJFMU3K87;
 				INFOPLIST_FILE = PenPals/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

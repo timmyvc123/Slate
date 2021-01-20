@@ -21,6 +21,8 @@ class MKMessage: NSObject, MessageType {
     var senderInitals: String
     
     var photoItem: PhotoMessage?
+    var videoItem: VideoMessage?
+    var locationItem: LocationMessage?
         
     var status: String
     var readDate: Date
@@ -41,6 +43,16 @@ class MKMessage: NSObject, MessageType {
             
             self.kind = MessageKind.photo(photoItem)
             self.photoItem = photoItem
+            
+        case kVIDEO:
+            let videoItem = VideoMessage(url: nil)
+            self.kind = MessageKind.video(videoItem)
+            self.videoItem = videoItem
+            
+        case kLOCATION:
+            let locationItem = LocationMessage(location: CLLocation(latitude: message.latitude, longitude: message.longitude))
+            self.kind = MessageKind.location(locationItem)
+            self.locationItem = locationItem
             
         default:
             print("unknown message type")

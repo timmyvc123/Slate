@@ -1,5 +1,5 @@
 //
-//  VideoMessage.swift
+//  VideoMessages.swift
 //  PenPals
 //
 //  Created by Tim Van Cauwenberge on 3/31/20.
@@ -9,7 +9,7 @@
 import Foundation
 import JSQMessagesViewController
 
-class VideoMessage: JSQMediaItem {
+class VideoMessages: JSQMediaItem {
     
     var image: UIImage?
     var videoImageView: UIImageView?

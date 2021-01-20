@@ -39,9 +39,33 @@ class IncomingMessage {
             }
         }
         
-        return mkMessage
+        if localMessage.type == kVIDEO {
+            
+            FileStorage.downloadImage(imageUrl: localMessage.pictureUrl) { (thumbnail) in
+                
+                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { (readyToPlay, fileName) in
+                    
+                    let videoURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
+                    
+                    let videoItem = VideoMessage(url: videoURL)
+                    
+                    mkMessage.videoItem = videoItem
+                    mkMessage.kind = MessageKind.video(videoItem)
+                }
+                
+                mkMessage.videoItem?.image = thumbnail
+                self.messageCollectionView.messagesCollectionView.reloadData()
+            }
+        }
         
+        if localMessage.type == kLOCATION {
+            
+            let locationItem = LocationMessage(location: CLLocation(latitude: localMessage.latitude, longitude: localMessage.longitude))
+            mkMessage.kind = MessageKind.location(locationItem)
+            mkMessage.locationItem = locationItem
+            
+        }
+        
+        return mkMessage
     }
-    
-    
 }

@@ -8,38 +8,24 @@
 
 import UIKit
 import Firebase
-import OneSignal
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow?
+    var firstRun: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
         
-        // one signal
-                    
-        func userDidLogin(userId: String) {
-            
-            self.startOneSignal()
-        }
+//        Messaging.messaging().delegate = self
+//        requestPushNotificationPermission()
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(USER_DID_LOGIN_NOTIFICATION), object: nil, queue: nil) { (note) in
-            
-            //code runs everytime there is a "broadcasting on this channel"
-            
-            let userId = note.userInfo![kUSERID] as! String
-            UserDefaults.standard.set(userId, forKey: kUSERID)
-            UserDefaults.standard.synchronize()
-            
-            print("user has logged in..............")
-            userDidLogin(userId: userId)
-            
-        }
+        firstRunCheck()
         
-        OneSignal.initWithLaunchOptions(launchOptions, appId: kONESIGNALAPPID)
+//        application.registerForRemoteNotifications()
+        
+        LocationManager.shared.startUpdating()
         
         return true
     }
@@ -58,29 +44,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    //MARK: OneSignal
-    
-    func startOneSignal() {
-     
-        let status: OSPermissionSubscriptionState = OneSignal.getPermissionSubscriptionState()
+    //MARK: - FirstRun
+    private func firstRunCheck() {
+
+        firstRun = userDefaults.bool(forKey: kFIRSTRUN)
         
-        let userID = status.subscriptionStatus.userId
-        let pushToken = status.subscriptionStatus.pushToken
-        
-        if pushToken != nil {
-            if let playerID = userID {
-                UserDefaults.standard.set(playerID, forKey: kPUSHID)
-            } else {
-                UserDefaults.standard.removeObject(forKey: kPUSHID)
-            }
-            // save changes
-            UserDefaults.standard.synchronize()
+        if !firstRun! {
+
+//            let status = Status.allCases.map { $0.rawValue }
+            
+//            userDefaults.set(status, forKey: kSTATUS)
+            userDefaults.set(true, forKey: kFIRSTRUN)
+            
+            userDefaults.synchronize()
         }
-        
-        //update OneSignal ID
-        updateOneSignalId()
-        
     }
+
     
 }
 

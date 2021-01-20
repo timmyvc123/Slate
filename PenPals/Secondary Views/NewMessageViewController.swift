@@ -315,7 +315,11 @@ class NewMessageViewController: MessagesViewController {
         
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (alert) in
             
-            print("Share Location")
+            if let _ = LocationManager.shared.currentLocation {
+                self.messageSend(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+            } else {
+                print("no access to location")
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
