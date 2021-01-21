@@ -30,6 +30,8 @@
 	<string>Slate would like to access your photo library</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Slate would like to use your location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Slate would like to use your microphone</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
