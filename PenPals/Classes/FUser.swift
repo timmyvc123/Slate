@@ -57,7 +57,7 @@ class FUser: Codable, Equatable {
         lastname = _lastname
         fullname = _firstname + " " + _lastname
         avatar = _avatar
-
+        
         language = _language
         
         loginMethod = _loginMethod
@@ -157,20 +157,20 @@ class FUser: Codable, Equatable {
     // checks current user logged in and returns their current ID
     
     class func currentIdFunc() -> String {
-
+        
         return Auth.auth().currentUser!.uid
     }
-
+    
     class func currentUserFunc() -> FUser? {
-
+        
         if Auth.auth().currentUser != nil {
-
+            
             if let dictionary = UserDefaults.standard.object(forKey: kCURRENTUSER) {
-
+                
                 return FUser.init(_dictionary: dictionary as! NSDictionary)
             }
         }
-
+        
         return nil
     }
     
@@ -258,6 +258,43 @@ class FUser: Codable, Equatable {
         
     }
     
+    //MARK: - Download
+    class func downloadUsersFromFirebase(withIds: [String], completion: @escaping (_ allUsers: [FUser]) -> Void) {
+        
+        var count = 0
+        var usersArray: [FUser] = []
+        
+        //go through each user and download it from firestore
+        for userId in withIds {
+            
+            FirebaseReference(.User).document(userId).getDocument { (snapshot, error) in
+                
+                guard let snapshot = snapshot else {  return }
+                
+                if snapshot.exists {
+                    
+                    let user = FUser(_dictionary: snapshot.data() as! NSDictionary)
+                    count += 1
+                    
+                    //dont add if its current user
+                    if user.objectId != FUser.currentId {
+                        usersArray.append(user)
+                    }
+                    
+                } else {
+                    completion(usersArray)
+                }
+                
+                if count == withIds.count {
+                    //we have finished, return the array
+                    completion(usersArray)
+                }
+                
+            }
+            
+        }
+    }
+    
     //MARK: LogOut func
     
     class func logOutCurrentUser(completion: @escaping (_ success: Bool) -> Void) {
@@ -301,18 +338,18 @@ class FUser: Codable, Equatable {
     }
     
     //MARK: Password Reset
-
+    
     func resetpassword(email: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
-//        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
-            
-//            if error == nil {
-//                onSuccess()
-//            } else {
-//                onError(error!.localizedDescription)
-//            }
-//
-//        }
+        //        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+        
+        //            if error == nil {
+        //                onSuccess()
+        //            } else {
+        //                onError(error!.localizedDescription)
+        //            }
+        //
+        //        }
         
     }
     

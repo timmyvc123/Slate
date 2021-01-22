@@ -21,20 +21,19 @@ func startChat(user1: FUser, user2: FUser) -> String {
 
 func restartChat(chatRoomId: String, memberIds: [String]) {
     
-    FirebaseUserListener.shared.downloadUsersFromFirebase(withIds: memberIds) { (users) in
+    FUser.downloadUsersFromFirebase(withIds: memberIds) { (users) in
         
         if users.count > 0 {
             createRecentItems(chatRoomId: chatRoomId, users: users)
         }
     }
-    
 }
 
 func getReceiverFrom(users: [FUser]) -> FUser {
     
     var allUsers = users
     
-    allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUserFunc()!)!)
+    allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUser!)!)
     
     return allUsers.first!
 }
@@ -59,10 +58,10 @@ func createRecentItems(chatRoomId: String, users: [FUser]) {
         
         for userId in memberIdsToCreateRecent {
                         
-            print("creating recent fr user with objectId \(userId)")
-            let senderUser = userId == FUser.currentId ? FUser.currentUserFunc()! : getReceiverFrom(users: users)
+            print("creating recent fr user with id \(userId)")
+            let senderUser = userId == FUser.currentId ? FUser.currentUser! : getReceiverFrom(users: users)
             
-            let receiverUser = userId == FUser.currentId ? getReceiverFrom(users: users) : FUser.currentUserFunc()!
+            let receiverUser = userId == FUser.currentId ? getReceiverFrom(users: users) : FUser.currentUser!
             
             let recentObject = RecentNew(id: UUID().uuidString, chatRoomId: chatRoomId, senderId: senderUser.objectId, senderName: senderUser.fullname, recieverId: receiverUser.objectId, recieverName: receiverUser.fullname, date: Date(), memberIds: [senderUser.objectId, receiverUser.objectId], lastMessage: "", unreadCounter: 0, avatarLink: receiverUser.avatar)
             
@@ -103,3 +102,4 @@ func chatRoomIdFrom(user1Id: String, user2Id: String) -> String {
     
     return chatRoomId
 }
+

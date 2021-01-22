@@ -10,45 +10,44 @@ import UIKit
 
 class MessagesTableViewController: UITableViewController {
     
-    //MARK - Vars
-    var allRecents: [RecentNew] = []
-    var filteredRecents: [RecentNew] = []
-    
-    let searchController = UISearchController(searchResultsController: nil)
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.tableFooterView = UIView()
-        downloadRecentChats()
-        setupSearchController()
+    //MARK: - Vars
+        var allRecents:[RecentNew] = []
+        var filteredRecents:[RecentNew] = []
         
-    }
+        let searchController = UISearchController(searchResultsController: nil)
+
+        //MARK: - ViewLifecycle
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            tableView.tableFooterView = UIView()
+            downloadRecentChats()
+            setupSearchController()
+        }
     
     //MARK: - IBActions
     @IBAction func composeBarButtonPressed(_ sender: Any) {
         
-        let contactsView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "ContactsView") as! ContactsTableViewController
-        navigationController?.pushViewController(contactsView, animated: true)
+        let userView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "usersView") as! UsersTableViewController
+
+                navigationController?.pushViewController(userView, animated: true)
     }
     
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         return searchController.isActive ? filteredRecents.count : allRecents.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewRecentTableViewCell
-        
+
         let recent = searchController.isActive ? filteredRecents[indexPath.row] : allRecents[indexPath.row]
 
-        // Configure the cell...
         cell.configure(recent: recent)
+        
         return cell
     }
     
@@ -95,57 +94,57 @@ class MessagesTableViewController: UITableViewController {
         
         return 5
     }
-    
-    //MARK: - Navigation
-    private func goToChat(recent: RecentNew) {
-        
-        //make sure we have 2 recent objects
-        restartChat(chatRoomId: recent.chatRoomId, memberIds: recent.memberIds)
-        
-        let privateChatView = NewMessageViewController(chatId: recent.chatRoomId, recipientId: recent.recieverId, recipientName: recent.recieverName)
-        
-        privateChatView.hidesBottomBarWhenPushed = true
-        
-        navigationController?.pushViewController(privateChatView, animated: true)
-        
-    }
+
     
     //MARK: - Download Chats
-    
     private func downloadRecentChats() {
         
-        FirebaseRecentListener.shared.downloadRecentChatsFrmFirestore { (allChats) in
+        FirebaseRecentListener.shared.downloadRecentChatsFromFireStore { (allChats) in
             
             self.allRecents = allChats
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         }
     }
     
-    //MARK: - SetupSearchController
+    //MARK: - Navigation
     
-        private func setupSearchController() {
-            
-            navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = true
-            
-            searchController.obscuresBackgroundDuringPresentation = false
-            searchController.searchBar.placeholder = "Search user"
-            searchController.searchResultsUpdater = self
-            definesPresentationContext = true
-        }
+    private func goToChat(recent: RecentNew) {
+        
+        restartChat(chatRoomId: recent.chatRoomId, memberIds: recent.memberIds)
+        
+        let privateChatView = NewMessageViewController(chatId: recent.chatRoomId, recipientId: recent.recieverId, recipientName: recent.recieverName)
+        
+        privateChatView.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(privateChatView, animated: true)
+    }
 
-        private func filteredContentForSearchText(searchText: String) {
+
+    
+    //MARK: - Search controller
+    private func setupSearchController() {
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search user"
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+    }
+
+    private func filteredContentForSearchText(searchText: String) {
+        
+        filteredRecents = allRecents.filter({ (recent) -> Bool in
             
-            filteredRecents = allRecents.filter({ (recent) -> Bool in
-                return recent.recieverName.lowercased().contains(searchText.lowercased())
-            })
-            
-            tableView.reloadData()
-        }
+            return recent.recieverName.lowercased().contains(searchText.lowercased())
+        })
+        
+        tableView.reloadData()
+    }
+
 }
 
 extension MessagesTableViewController: UISearchResultsUpdating {

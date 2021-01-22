@@ -39,12 +39,11 @@ class NewRecentTableViewCell: UITableViewCell {
         lastMessageLabel.adjustsFontSizeToFitWidth = true
         lastMessageLabel.numberOfLines = 2
         lastMessageLabel.minimumScaleFactor = 0.9
-        
-        if recent.unreadCounter !=  0 {
+
+        if recent.unreadCounter != 0 {
             self.counterLabel.text = "\(recent.unreadCounter)"
             self.counterBackgroundView.isHidden = false
         } else {
-            
             self.counterBackgroundView.isHidden = true
         }
         
@@ -54,15 +53,13 @@ class NewRecentTableViewCell: UITableViewCell {
     }
     
     private func setAvatar(avatarLink: String) {
-        
         if avatarLink != "" {
             FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in
                 self.avatarImageView.image = avatarImage?.circleMasked
             }
         } else {
-            self.avatarImageView.image = UIImage(named: "avatar")?.circleMasked
+            self.avatarImageView.image = UIImage(named: "avatar")
         }
-        
     }
 
 }

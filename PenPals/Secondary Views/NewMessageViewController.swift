@@ -108,13 +108,13 @@ class NewMessageViewController: MessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        FirebaseRecentListener.shared.resetRecentCounter(chatroomId: chatId)
+        FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        FirebaseRecentListener.shared.resetRecentCounter(chatroomId: chatId)
+        FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
         audioController.stopAnyOngoingPlaying()
     }
     
@@ -321,7 +321,7 @@ class NewMessageViewController: MessagesViewController {
     
     @objc func backButtonPressed() {
         
-        FirebaseRecentListener.shared.resetRecentCounter(chatroomId: chatId)
+        FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
         removeListeners()
         self.navigationController?.popViewController(animated: true)
     }

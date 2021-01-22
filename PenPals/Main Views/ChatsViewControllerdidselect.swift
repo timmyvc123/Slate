@@ -5,7 +5,7 @@
 //  Created by Tim Van Cauwenberge on 3/5/20.
 //  Copyright © 2020 SeniorProject. All rights reserved.
 //
-
+ 
 import UIKit
 import FirebaseFirestore
 
@@ -15,8 +15,8 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var tableView: UITableView!
     
-    var recentChats: [NSDictionary] = []
-    var filteredChats: [NSDictionary] = []
+    var allRecents: [NSDictionary] = []
+    var filteredRecents: [NSDictionary] = []
     
     //for lsitening for new messages
     var recentListener: ListenerRegistration!
@@ -74,9 +74,9 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if searchController.isActive && searchController.searchBar.text != "" {
-            return filteredChats.count
+            return filteredRecents.count
         } else {
-            return recentChats.count
+            return allRecents.count
         }
         
     }
@@ -93,9 +93,9 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         
         if searchController.isActive && searchController.searchBar.text != "" {
-            recent = filteredChats[indexPath.row]
+            recent = filteredRecents[indexPath.row]
         } else {
-            recent = recentChats[indexPath.row]
+            recent = allRecents[indexPath.row]
         }
         
         cell.generateCell(recentChat: recent, indexPath: indexPath)
@@ -117,9 +117,9 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // find user's cell location selected user in messages
         if searchController.isActive && searchController.searchBar.text != "" {
-            tempRecent = filteredChats[indexPath.row]
+            tempRecent = filteredRecents[indexPath.row]
         } else {
-            tempRecent = recentChats[indexPath.row]
+            tempRecent = allRecents[indexPath.row]
         }
         
         var muteTitle = NSLocalizedString("Unmute", comment: "")
@@ -136,7 +136,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // create delete button
         let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: "")) { (action, indexPath) in
             
-            self.recentChats.remove(at: indexPath.row)
+            self.allRecents.remove(at: indexPath.row)
             
             deleteRecentChat(recentChatDictionary: tempRecent)
             
@@ -164,15 +164,17 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         // find user's cell location selected user in messages
         if searchController.isActive && searchController.searchBar.text != "" {
-            recent = filteredChats[indexPath.row]
+            recent = filteredRecents[indexPath.row]
         } else {
-            recent = recentChats[indexPath.row]
+            recent = allRecents[indexPath.row]
         }
         
         //restart chat
         restartRecentChat(recent: recent)
         
         let messageVC = MessageViewController()
+//        let messageVC = NewMessageViewController(chatId: (recent[kCHATROOMID] as? String)!, recipientId: <#T##String#>, recipientName: <#T##String#>)
+        
         //hide tabBar at bottom of screen
         messageVC.hidesBottomBarWhenPushed = true
         //pass these 4 values to message view
@@ -200,7 +202,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             guard let snapshot = snapshot else { return }
             
             //stops duplicating the recent messages
-            self.recentChats = []
+            self.allRecents = []
             
             if !snapshot.isEmpty {
                 
@@ -217,7 +219,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         var text = recent[kLASTMESSAGE] as! String
                                                 
                         //add it to recent chat array
-                        self.recentChats.append(recent)
+                        self.allRecents.append(recent)
                     }
                     
                     FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: recent[kCHATROOMID] as! String).getDocuments(completion: { (snapshot, error) in
@@ -239,9 +241,9 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var recentChat: NSDictionary!
         
         if searchController.isActive && searchController.searchBar.text != "" {
-            recentChat = filteredChats[indexPath.row]
+            recentChat = filteredRecents[indexPath.row]
         } else {
-            recentChat = recentChats[indexPath.row]
+            recentChat = allRecents[indexPath.row]
         }
         
         //check if it is a private message or groupchat
@@ -284,7 +286,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         
-        filteredChats = recentChats.filter({ (recentChat) -> Bool in
+        filteredRecents = allRecents.filter({ (recentChat) -> Bool in
             
             return (recentChat[kWITHUSERFULLNAME] as! String).lowercased().contains(searchText.lowercased())
         })

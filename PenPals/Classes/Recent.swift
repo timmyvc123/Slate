@@ -10,7 +10,7 @@ import Foundation
 
 func startPrivateChat(user1: FUser, user2: FUser) -> String {
     
-    let userId1 = user1.objectId
+    let userId1 = user1.objectId 
     let userId2 = user2.objectId
     
     var chatRoomId = ""

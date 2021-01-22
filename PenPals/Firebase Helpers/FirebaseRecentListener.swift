@@ -15,40 +15,35 @@ class FirebaseRecentListener {
     
     private init() {}
     
-    func downloadRecentChatsFrmFirestore(completion: @escaping (_ allRecents: [RecentNew]) -> Void) {
+    func downloadRecentChatsFromFireStore(completion: @escaping (_ allRecents: [RecentNew]) ->Void) {
         
-        //get all recents that sender has
         FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: FUser.currentId).addSnapshotListener { (querySnapshot, error) in
             
             var recentChats: [RecentNew] = []
             
             guard let documents = querySnapshot?.documents else {
-                
                 print("no documents for recent chats")
                 return
             }
             
-            //convert into recent objects to get a dictionary
             let allRecents = documents.compactMap { (queryDocumentSnapshot) -> RecentNew? in
                 return try? queryDocumentSnapshot.data(as: RecentNew.self)
             }
             
-            //check which recents have a last message
             for recent in allRecents {
                 if recent.lastMessage != "" {
                     recentChats.append(recent)
                 }
             }
             
-            //sort the recent objects
             recentChats.sort(by: { $0.date! > $1.date! })
             completion(recentChats)
         }
     }
     
-    func resetRecentCounter(chatroomId: String) {
+    func resetRecentCounter(chatRoomId: String) {
         
-        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatroomId).whereField(kSENDERID, isEqualTo: FUser.currentId).getDocuments { (querySnapshot, error) in
+        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).whereField(kSENDERID, isEqualTo: FUser.currentId).getDocuments { (querySnapshot, error) in
             
             guard let documents = querySnapshot?.documents else {
                 print("no documents for recent")
@@ -56,7 +51,6 @@ class FirebaseRecentListener {
             }
             
             let allRecents = documents.compactMap { (queryDocumentSnapshot) -> RecentNew? in
-                
                 return try? queryDocumentSnapshot.data(as: RecentNew.self)
             }
             
@@ -64,12 +58,11 @@ class FirebaseRecentListener {
                 self.clearUnreadCounter(recent: allRecents.first!)
             }
         }
-        
     }
     
-    func updateRecents(chatRomId: String, lastMessage: String) {
+    func updateRecents(chatRoomId: String, lastMessage: String) {
         
-        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRomId).getDocuments { (querySnapshot, error) in
+        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (querySnapshot, error) in
             
             guard let documents = querySnapshot?.documents else {
                 print("no document for recent update")
@@ -98,14 +91,13 @@ class FirebaseRecentListener {
         tempRecent.date = Date()
         
         self.saveRecent(tempRecent)
-        
     }
     
     func clearUnreadCounter(recent: RecentNew) {
         
-        var recent = recent
-        recent.unreadCounter = 0
-        self.saveRecent(recent)
+        var newRecent = recent
+        newRecent.unreadCounter = 0
+        self.saveRecent(newRecent)
     }
     
     func saveRecent(_ recent: RecentNew) {
@@ -116,7 +108,6 @@ class FirebaseRecentListener {
         catch {
             print("Error saving recent chat ", error.localizedDescription)
         }
-        
     }
     
     func deleteRecent(_ recent: RecentNew) {
