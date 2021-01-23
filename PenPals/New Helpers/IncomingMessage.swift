@@ -18,9 +18,34 @@ class IncomingMessage {
             messageCollectionView = _collectionView
         }
     
+    //MARK: - Translation Vars
+    var code = FUser.currentUser?.language
+    let semaphore = DispatchSemaphore(value: 0)
+    var translatedText = ""
+    
+    
     //MARK: - Create Message
     
     func createMessage(localMessage: LocalMessage) -> MKMessage? {
+        
+        let userId = localMessage.senderId
+        let tempId = FUser.currentUser?.objectId
+        
+        var isCurrentUser: Bool = false
+        
+        if userId == tempId {
+            isCurrentUser = true
+        }
+        
+//        var test = String(describing: localMessage)
+        var text = localMessage.message
+        
+        initiateTranslation(text: text, isCurrentUser: isCurrentUser) { (transText) in
+            text = transText
+            self.semaphore.signal()
+        }
+        
+        _ = semaphore.wait(wallTimeout: .distantFuture)
         
         let mkMessage = MKMessage(message: localMessage)
         
@@ -84,4 +109,51 @@ class IncomingMessage {
         
         return mkMessage
     }
+    
+    //MARK: Translation Code
+    
+    func detectlanguage(text: String, completion: @escaping ( _ result: String) -> ()) {
+
+        TranslationManager.shared.detectLanguage(forText: text) { (language) in
+            if let language = language {
+                print("The detected language was \(language)")
+                completion(language)
+            } else {
+                print("language code not detected")
+            }
+        }
+    }
+    
+    func initiateTranslation(text: String, isCurrentUser: Bool, completion: @escaping ( _ result: String) -> ()) {
+        var text = text
+        if isCurrentUser {
+            completion(text)
+        } else {
+            translate(text: text)
+            TranslationManager.shared.translate { (translation) in
+                if let translation = translation {
+                    text = translation
+                    print("The translation is... \(text)")
+                    completion(text)
+                } else {
+                    print("language not translated")
+                    self.semaphore.signal()
+                }
+                
+            }
+        }
+    }
+    
+    func translate(text: String) {
+        getTargetLangCode()
+        TranslationManager.shared.textToTranslate = text
+    }
+    
+    func getTargetLangCode() {
+        if code == nil {
+            code = FUser.currentUser?.language
+        }
+        TranslationManager.shared.targetLanguageCode = code
+    }
+      
 }

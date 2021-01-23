@@ -33,7 +33,7 @@ func getReceiverFrom(users: [FUser]) -> FUser {
     
     var allUsers = users
     
-    allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUser!)!)
+    allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUserFunc()!)!)
     
     return allUsers.first!
 }
@@ -59,9 +59,10 @@ func createRecentItems(chatRoomId: String, users: [FUser]) {
         for userId in memberIdsToCreateRecent {
                         
             print("creating recent fr user with id \(userId)")
-            let senderUser = userId == FUser.currentId ? FUser.currentUser! : getReceiverFrom(users: users)
+            print("This is the all users array..... ", users)
+            let senderUser = userId == FUser.currentId ? FUser.currentUserFunc()! : getReceiverFrom(users: users)
             
-            let receiverUser = userId == FUser.currentId ? getReceiverFrom(users: users) : FUser.currentUser!
+            let receiverUser = userId == FUser.currentId ? getReceiverFrom(users: users) : FUser.currentUserFunc()!
             
             let recentObject = RecentNew(id: UUID().uuidString, chatRoomId: chatRoomId, senderId: senderUser.objectId, senderName: senderUser.fullname, recieverId: receiverUser.objectId, recieverName: receiverUser.fullname, date: Date(), memberIds: [senderUser.objectId, receiverUser.objectId], lastMessage: "", unreadCounter: 0, avatarLink: receiverUser.avatar)
             
