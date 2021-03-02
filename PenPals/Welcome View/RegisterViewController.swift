@@ -9,8 +9,10 @@
 import UIKit
 import JGProgressHUD
 import PasswordTextField
+import ImagePicker
+import Gallery
 
-class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     @IBOutlet weak var signUpLabel: UILabel!
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -31,20 +33,25 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var languageDropDown: UITextField!
+    
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet var avatarTapGesturerecognizer: UITapGestureRecognizer!
+    
     @IBOutlet weak var languagePicker: UIPickerView!
+    
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var termsButton: UIButton!
     
     @IBOutlet weak var registerScrollView: UIScrollView!
     
-    var myImageView: UIImageView!
-    var myImage: UIImage!
+    var imagePicker = UIImagePickerController()
+    var images: [UIImage] = []
+    var gallery: GalleryController!
+    var avatarImage: UIImage?
     
     var email: String!
     var password: String!
-    var avatarImage: UIImage?
     var selectedLanguage: String?
     
     var languageList = [NSLocalizedString("Arabic", comment: ""), NSLocalizedString("Standard Chinese (Mandarin)", comment: ""), NSLocalizedString("English", comment: ""), NSLocalizedString("French", comment: ""), NSLocalizedString("German", comment: ""),  NSLocalizedString("Hindi", comment: ""), NSLocalizedString("Italian", comment: ""), NSLocalizedString("Japanese", comment: ""), NSLocalizedString("Korean", comment: ""),  NSLocalizedString("Portuguese", comment: ""),  NSLocalizedString("Russian", comment: ""), NSLocalizedString("Spanish", comment: "")]
@@ -129,9 +136,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     //MARK: IBActions
     
     @IBAction func avatarImageTapped(_ sender: Any) {
-        
-        avatarImageView.clipsToBounds = true
-        avatarImageView.isUserInteractionEnabled = true
         presentPicker()
     }
     
@@ -141,6 +145,27 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         picker.allowsEditing = true
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            avatarImage = imageSelected
+            avatarImageView.image = imageSelected
+            avatarImageView.image = avatarImage?.circleMasked
+            
+        }
+        
+        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            avatarImage = imageOriginal
+            avatarImageView.image = imageOriginal
+            avatarImageView.image = avatarImage?.circleMasked
+        }
+        
+        avatarImageView.image = avatarImage!.fixedOrientation()
+        avatarImageView.image = avatarImageView.image?.circleMasked
+        
+        picker.dismiss(animated: true, completion: nil)
     }
     
     func validatePhone(value: String) -> Bool {
@@ -246,6 +271,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         var tempDictionary : Dictionary = [kFIRSTNAME : firstName!, kLASTNAME : lastName!, kFULLNAME : fullName, kPHONE : phoneNumberTextField.text!, kLANGUAGE : languageSelect(langIndex: languageIndex)] as [String : Any]
         
+        
         //if user doesn't pick a profile picture make the picture their intials
         if avatarImage == nil {
             
@@ -254,19 +280,21 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 
                 // converts image into a string so it can be saved in database
                 let avatarImg = avatarInitials.jpegData(compressionQuality: 0.7)
-                let avatar = avatarImg!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+                let avatarString = avatarImg!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 
-                tempDictionary[kAVATAR] = avatar
+                tempDictionary[kAVATAR] = avatarString
                 
                 self.finishRegistration(withValues: tempDictionary)
             }
             
         } else {
             
-            let avatarData = avatarImageView.image!.jpegData(compressionQuality: 0.1)
-            let avatar = avatarData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-            
-            tempDictionary[kAVATAR] = avatar
+            //avatarImage?.circleMasked
+            let avatarData = avatarImage!.jpegData(compressionQuality: 0.5)
+            //convert to string
+            let avatarString = avatarData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+                        
+            tempDictionary[kAVATAR] = avatarString
             
             self.finishRegistration(withValues: tempDictionary)
             
@@ -413,29 +441,29 @@ extension UITextField {
     }
 }
 
-extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            avatarImage = imageSelected
-            avatarImageView.image = imageSelected
-            avatarImageView.image = avatarImage?.circleMasked
-            
-        }
-        
-        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            avatarImage = imageOriginal
-            avatarImageView.image = imageOriginal
-            avatarImageView.image = avatarImage?.circleMasked
-        }
-        
-        avatarImageView.image = avatarImage!.fixedOrientation()
-        avatarImageView.image = avatarImageView.image?.circleMasked
-        
-        picker.dismiss(animated: true, completion: nil)
-    }
-}
+//extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//
+//        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//            avatarImage = imageSelected
+//            avatarImageView.image = imageSelected
+//            avatarImageView.image = avatarImage?.circleMasked
+//
+//        }
+//
+//        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            avatarImage = imageOriginal
+//            avatarImageView.image = imageOriginal
+//            avatarImageView.image = avatarImage?.circleMasked
+//        }
+//
+//        avatarImageView.image = avatarImage!.fixedOrientation()
+//        avatarImageView.image = avatarImageView.image?.circleMasked
+//
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}
 
 extension UIImage {
 

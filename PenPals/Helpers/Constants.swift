@@ -81,7 +81,7 @@ public let kSUCCESS = 2
 
 //recent
 // variables linked to recent chats in databse
-public let kCHATROOMID = "chatRoomID"
+public let kCHATROOMID = "chatRoomId"
 public let kUSERID = "userId"
 public let kDATE = "date"
 public let kPRIVATE = "private"

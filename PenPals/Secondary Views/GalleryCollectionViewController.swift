@@ -69,21 +69,21 @@ class GalleryCollectionViewController: UICollectionViewController {
     
     func downloadImages() {
         
-        for imageLink in allImageLinks {
-            
-            downloadImage(imageUrl: imageLink) { (image) in
-                
-                if image != nil {
-                    
-                    // add image to array
-                    self.allImages.append(image!)
-                    //refresh
-                    self.collectionView.reloadData()
-                }
-                
-            }
-            
-        }
+//        for imageLink in allImageLinks {
+//            
+//            downloadImage(imageUrl: imageLink) { (image) in
+//                
+//                if image != nil {
+//                    
+//                    // add image to array
+//                    self.allImages.append(image!)
+//                    //refresh
+//                    self.collectionView.reloadData()
+//                }
+//                
+//            }
+//            
+//        }
     }
 
 }

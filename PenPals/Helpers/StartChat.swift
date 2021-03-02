@@ -32,9 +32,9 @@ func restartChat(chatRoomId: String, memberIds: [String]) {
 func getReceiverFrom(users: [FUser]) -> FUser {
     
     var allUsers = users
-    
-    allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUserFunc()!)!)
-    
+    if allUsers.count > 1 {
+        allUsers.remove(at: allUsers.firstIndex(of: FUser.currentUserFunc()!)!)
+    }
     return allUsers.first!
 }
 

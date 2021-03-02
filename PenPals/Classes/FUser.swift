@@ -277,9 +277,9 @@ class FUser: Codable, Equatable {
                     count += 1
                     
                     //dont add if its current user
-                    if user.objectId != FUser.currentId {
+                  //  if user.objectId != FUser.currentId {
                         usersArray.append(user)
-                    }
+                   // }
                     
                 } else {
                     completion(usersArray)

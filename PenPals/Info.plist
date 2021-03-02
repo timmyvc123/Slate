@@ -26,12 +26,12 @@
 	<string>Slate would like to access your camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Slate would like to access your contacts</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Slate would like to access your photo library</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Slate would like to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Slate would like to use your microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Slate would like to access your photo library</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

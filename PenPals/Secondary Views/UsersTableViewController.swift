@@ -18,11 +18,14 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     var allUsersGrouped = NSDictionary() as! [String : [FUser]]
     var sectionTitleList : [String] = []
     
-    var currentFriendListIds = FUser.currentUser!.friendListIds
+    var user: FUser?
     
+    var currentFriendListIds = FUser.currentUserFunc()!.friendListIds
     var hud = JGProgressHUD(style: .dark)
     
     let searchController = UISearchController(searchResultsController: nil)
+    
+    @IBOutlet var contactsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +39,39 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
+//
+//        tabBarController?.tabBar.items?[0].title = NSLocalizedString("Chats", comment: "")
+//        tabBarController?.tabBar.items?[1].title = NSLocalizedString("Your Friends", comment: "")
+//        tabBarController?.tabBar.items?[2].title = NSLocalizedString("Settings", comment: "")
         
         self.loadTheFriendUsers()
-        //loadUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadTheFriendUsers()
+        contactsTableView?.reloadData()
         
+    }
+    
+    //MARK: IBActions
+    
+    @IBAction func refreshController(_ sender: UIRefreshControl) {
+        
+        getUsersFromFirestore(withIds:  FUser.currentUser!.friendListIds) { (allFriendUsers) in
+            
+            self.hud.dismiss()
+            
+            self.allUsers = allFriendUsers
+            
+            self.splitDataIntoSections()
+            self.tableView.reloadData()
+            
+        }
+        
+        loadTheFriendUsers()
+        contactsTableView?.reloadData()
+        sender.endRefreshing()
     }
     
     // MARK: - Table view data source
@@ -151,34 +183,50 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
             user = users![indexPath.row]
         }
         
-        // starts 1v1 chat
-        
-        if !checkBlockedStatus(withUser: user) {
-            let messageVC = MessageViewController()
-            messageVC.titleName = user.firstname
-            messageVC.membersToPush = [FUser.currentId, user.objectId]
-            messageVC.memberIds = [FUser.currentId, user.objectId]
+        print("User cell tap at \(indexPath)")
+                
+        // if we have a search
+        if searchController.isActive && searchController.searchBar.text != "" {
             
-            messageVC.chatRoomId = startPrivateChat(user1: FUser.currentUser!, user2: user)
-            messageVC.isGroup = false
-            messageVC.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(messageVC, animated: true)
+            // users the current user is searching for
+            user = filteredUsers[indexPath.row]
             
         } else {
-            self.hud.textLabel.text = "This user is not available for chatting!"
+            
+            //otherwise just show all the users
+            let sectionTitle = self.sectionTitleList[indexPath.section]
+            
+            let users = self.allUsersGrouped[sectionTitle]
+            
+            user = users![indexPath.row]
+        }
+        
+        if !checkBlockedStatus(withUser: user) {
+            
+            let chatId = startChat(user1: FUser.currentUserFunc()!, user2: user)
+            
+            let privateChatView = NewMessageViewController(chatId: chatId, recipientId: user.objectId, recipientName: user.fullname)
+            
+            privateChatView.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(privateChatView, animated: true)
+            print("Start chatting in chatroom id: \(chatId)")
+
+        } else {
+
+            self.hud.textLabel.text = NSLocalizedString("Not Available", comment: "")
             self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
             self.hud.show(in: self.view)
             self.hud.dismiss(afterDelay: 1.5, animated: true)
-            
+
         }
     }
     
     func loadTheFriendUsers() {
-        if FUser.currentUser!.friendListIds.count > 0 {
+        if FUser.currentUserFunc()!.friendListIds.count > 0 {
             
             hud.show(in: self.view)
             
-            getUsersFromFirestore(withIds:  FUser.currentUser!.friendListIds) { (allFriendUsers) in
+            getUsersFromFirestore(withIds:  FUser.currentUserFunc()!.friendListIds) { (allFriendUsers) in
                 
                 self.hud.dismiss()
                 
@@ -198,10 +246,9 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
         
         // show loading bar
         hud.show(in: self.view)
-
+        
         var query: Query!
         query = FirebaseReference(.User).order(by: kFIRSTNAME, descending: false)
-
         
         // snapshot = each users data
         query.getDocuments { (snapshot, error) in
@@ -285,31 +332,31 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     fileprivate func splitDataIntoSections() {
         
         var sectionTitle: String = ""
-            self.sectionTitleList.removeAll()
-            self.allUsersGrouped.removeAll()
-            //loop through all users
-            for i in 0..<self.allUsers.count {
+        self.sectionTitleList.removeAll()
+        self.allUsersGrouped.removeAll()
+        //loop through all users
+        for i in 0..<self.allUsers.count {
+            
+            let currentUser = self.allUsers[i]
+            
+            //get first character of user's name
+            let firstChar = currentUser.firstname.first!
+            
+            let firstCharString = "\(firstChar)"
+            
+            sectionTitle = firstCharString
+            if !sectionTitleList.contains(firstCharString) {
                 
-                let currentUser = self.allUsers[i]
+                self.allUsersGrouped[sectionTitle] = []
                 
-                //get first character of user's name
-                let firstChar = currentUser.firstname.first!
-                
-                let firstCharString = "\(firstChar)"
-                
-                sectionTitle = firstCharString
-                if !sectionTitleList.contains(firstCharString) {
-                    
-                    self.allUsersGrouped[sectionTitle] = []
-                    
-                    self.sectionTitleList.append(sectionTitle)
-                    let array = self.sectionTitleList.sorted(by: <)
-                    self.sectionTitleList = array
-                }
-                
-                self.allUsersGrouped[sectionTitle]?.append(currentUser)
+                self.sectionTitleList.append(sectionTitle)
+                let array = self.sectionTitleList.sorted(by: <)
+                self.sectionTitleList = array
             }
+            
+            self.allUsersGrouped[sectionTitle]?.append(currentUser)
         }
+    }
     
     //MARK: UserTableViewCellDelegate
     
@@ -341,4 +388,3 @@ class UsersTableViewController: UITableViewController, UISearchResultsUpdating, 
     }
     
 }
-

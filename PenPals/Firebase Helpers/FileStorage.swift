@@ -11,14 +11,10 @@ import FirebaseStorage
 import ProgressHUD
 
 
-//let storage = Storage.storage()
-
-
+let storage = Storage.storage()
 
 class FileStorage {
-    
-    //    let storage = Storage.storage()
-    
+        
     //MARK: Images
     
     class func uploadImage(_ image: UIImage, directory: String, completion: @escaping (_ dcumentLink: String?) -> Void) {
@@ -59,52 +55,54 @@ class FileStorage {
     }
     
     class func downloadImage(imageUrl: String, completion: @escaping (_ image: UIImage?) -> Void) {
-        
-        let imageFileName = fileNameFrom(fileUrl: imageUrl)
-        
-        if fileExistsAtPath(path: imageFileName) {
-            //get file locally
-            
-            if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(fileName: imageFileName)) {
-                
-                completion(contentsOfFile)
-            } else {
-                print("couldnt convert local image")
-                completion(UIImage(named: "avatar"))
-            }
-            
-        } else {
-            //download from Firebase
-            
-            if imageUrl != "" {
-                
-                let documentUrl = URL(string: imageUrl)
-                
-                let downloadQueue = DispatchQueue(label: "imageDownloadQueue")
-                
-                downloadQueue.async {
-                    
-                    let data = NSData(contentsOf: documentUrl!)
-                    
-                    if data != nil {
-                        
-                        //Save locally
-                        FileStorage.saveFileLocally(fileData: data!, fileName: imageFileName)
-                        
-                        DispatchQueue.main.async {
-                            completion(UIImage(data: data! as Data))
-                        }
-                        
-                    } else {
-                        print("no document in database")
-                        DispatchQueue.main.async {
-                            completion(nil)
-                        }
-                    }
-                }
-            }
-        }
-    }
+           
+           let imageFileName = fileNameFrom(fileUrl: imageUrl)
+
+           if fileExistsAtPath(path: imageFileName) {
+               //get it locally
+   //            print("We have local image")
+               
+               if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(fileName: imageFileName)) {
+                   
+                   completion(contentsOfFile)
+               } else {
+                   print("couldnt convert local image")
+                   completion(UIImage(named: "avatarPlaceholder"))
+               }
+               
+           } else {
+               //download from FB
+   //            print("Lets get from FB")
+
+               if imageUrl != "" {
+                   
+                   let documentUrl = URL(string: imageUrl)
+                   
+                   let downloadQueue = DispatchQueue(label: "imageDownloadQueue")
+                   
+                   downloadQueue.async {
+                       
+                       let data = NSData(contentsOf: documentUrl!)
+                       
+                       if data != nil {
+                           
+                           //Save locally
+                           FileStorage.saveFileLocally(fileData: data!, fileName: imageFileName)
+                           
+                           DispatchQueue.main.async {
+                               completion(UIImage(data: data! as Data))
+                           }
+                           
+                       } else {
+                           print("no document in database")
+                           DispatchQueue.main.async {
+                               completion(nil)
+                           }
+                       }
+                   }
+               }
+           }
+       }
     
     
     //MARK: - Video
@@ -256,16 +254,15 @@ class FileStorage {
     }
     
     
-    //MARK: Save Locally
+    //MARK: - Save Locally
     class func saveFileLocally(fileData: NSData, fileName: String) {
-        
         let docUrl = getDocumentsURL().appendingPathComponent(fileName, isDirectory: false)
         fileData.write(to: docUrl, atomically: true)
     }
     
 }
 
-//MARK: Helpers
+//MARK: - Helpers
 func fileInDocumentsDirectory(fileName: String) -> String {
     return getDocumentsURL().appendingPathComponent(fileName).path
 }

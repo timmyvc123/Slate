@@ -41,7 +41,7 @@ class ProfileViewTableViewController: UITableViewController {
     }
     
     
-    ///MARK: IBActions
+    //MARK: IBActions
     
     @IBAction func messageButtonPressed(_ sender: Any) {
         if !checkBlockedStatus(withUser: user!) {
@@ -96,7 +96,7 @@ class ProfileViewTableViewController: UITableViewController {
             self.updateBlockStatus()
         }
         
-        blockUser(userToBlock: user!)
+//        blockUser(userToBlock: user!) func in recent.swift (deleted)
     }
     
     var isFriendRemovedSuccessfully = false
@@ -234,6 +234,7 @@ class ProfileViewTableViewController: UITableViewController {
             messageButtonOutlet.setTitleColor(.lightGray, for: .normal)
         }
     }
+    
     
     func getLanguage(user: FUser?) {
         

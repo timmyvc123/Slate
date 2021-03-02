@@ -10,7 +10,7 @@ import UIKit
 
 class NewRecentTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -31,6 +31,8 @@ class NewRecentTableViewCell: UITableViewCell {
     
     func configure(recent: RecentNew) {
         
+        //print("AVATAR IMAGE  ", recent.avatarLink)
+        
         usernameLabel.text = recent.recieverName
         usernameLabel.adjustsFontSizeToFitWidth = true
         usernameLabel.minimumScaleFactor = 0.9
@@ -47,18 +49,31 @@ class NewRecentTableViewCell: UITableViewCell {
             self.counterBackgroundView.isHidden = true
         }
         
-        setAvatar(avatarLink: recent.avatarLink)
+        
+        
+//        profileImageView.image = UIImage(named: "avatarPlaceholder")
+        
+        var link = URL(string: recent.avatarLink)
+        
+        if let data = try? Data(contentsOf: link!) {
+            profileImageView.image = UIImage(data: data)
+        }
+        
+//        profileImageView.image = recent.avatarLink
+//        setAvatar(avatarLink: recent.avatarLink)
         dateLabel.text = timeElapsed(recent.date ?? Date())
         dateLabel.adjustsFontSizeToFitWidth = true
     }
     
     private func setAvatar(avatarLink: String) {
         if avatarLink != "" {
+            
+            print("We get the profile picture!!!!")
             FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in
-                self.avatarImageView.image = avatarImage?.circleMasked
+                self.profileImageView.image = avatarImage?.circleMasked
             }
         } else {
-            self.avatarImageView.image = UIImage(named: "avatar")
+            self.profileImageView.image = UIImage(named: "avatarPlaceholder")
         }
     }
 

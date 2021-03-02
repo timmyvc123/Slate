@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dqH-7r-jnt">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -508,7 +507,7 @@
                                                     <constraint firstAttribute="width" constant="208" id="KFa-uS-dIs"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="H5i-Ad-AbD" appends="YES" id="1HP-g3-Fhl"/>
+                                                    <outletCollection property="gestureRecognizers" destination="enD-rD-M2B" appends="YES" id="1iC-lv-IcQ"/>
                                                 </connections>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Profile Picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjA-17-eFa">
@@ -519,7 +518,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d66-Ms-N5T">
                                                 <rect key="frame" x="112.5" y="980" width="193" height="40"/>
-                                                <color key="backgroundColor" red="0.81960784310000001" green="0.84313725490000002" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="TextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="193" id="1Nc-5J-Hui"/>
                                                 </constraints>
@@ -634,6 +633,7 @@
                     <size key="freeformSize" width="414" height="1175"/>
                     <connections>
                         <outlet property="avatarImageView" destination="nY5-QN-yjJ" id="DH7-Hu-Z5h"/>
+                        <outlet property="avatarTapGesturerecognizer" destination="enD-rD-M2B" id="mYJ-ep-8K8"/>
                         <outlet property="confirmPasswordLabel" destination="IaV-pw-LXQ" id="Hfl-fe-nra"/>
                         <outlet property="confirmPasswordTextField" destination="SWP-MV-zBy" id="k4j-U4-pPA"/>
                         <outlet property="emailLabel" destination="99v-Z6-qjr" id="eI1-ZN-hcs"/>
@@ -658,11 +658,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4AG-mv-UMd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="H5i-Ad-AbD">
-                    <connections>
-                        <action selector="avatarImageTapped:" destination="Nga-9S-RoF" id="iBP-Zc-dUV"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="enD-rD-M2B"/>
             </objects>
             <point key="canvasLocation" x="2150.7246376811595" y="89.397321428571431"/>
         </scene>
@@ -719,7 +715,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nis-vs-Ljc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3603" y="980"/>
+            <point key="canvasLocation" x="-329" y="996"/>
         </scene>
         <!--Profile View Table View Controller-->
         <scene sceneID="2DR-Kz-1W3">
@@ -1061,63 +1057,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="s9E-YS-AaE">
-                                        <rect key="frame" x="0.0" y="227.5" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s9E-YS-AaE" id="65p-PG-xlG">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Avatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yM-tk-2ot">
-                                                    <rect key="frame" x="20" y="11.5" width="317" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nga-0J-gfp">
-                                                    <rect key="frame" x="345" y="6.5" width="49" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="31" id="YVi-h5-yec"/>
-                                                        <constraint firstAttribute="width" constant="47" id="Zn2-Y4-yqj"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <action selector="showAvatarStatusSwitchValueChanged:" destination="gLO-Vx-tGv" eventType="valueChanged" id="lah-HD-Dqr"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8yM-tk-2ot" firstAttribute="leading" secondItem="65p-PG-xlG" secondAttribute="leadingMargin" id="1Tk-Jm-Gy8"/>
-                                                <constraint firstItem="nga-0J-gfp" firstAttribute="centerY" secondItem="65p-PG-xlG" secondAttribute="centerY" id="DB6-PB-qON"/>
-                                                <constraint firstItem="nga-0J-gfp" firstAttribute="leading" secondItem="8yM-tk-2ot" secondAttribute="trailing" constant="8" id="F8P-65-k0B"/>
-                                                <constraint firstItem="8yM-tk-2ot" firstAttribute="centerY" secondItem="65p-PG-xlG" secondAttribute="centerY" id="KW6-0t-zxV"/>
-                                                <constraint firstAttribute="trailing" secondItem="nga-0J-gfp" secondAttribute="trailing" constant="22" id="di3-ze-Nls"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Tgi-ol-hWl">
-                                        <rect key="frame" x="0.0" y="271" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tgi-ol-hWl" id="Er1-Bj-5Wn">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddW-Px-fJI">
-                                                    <rect key="frame" x="20" y="7" width="374" height="30"/>
-                                                    <state key="normal" title="Clean Cache"/>
-                                                    <connections>
-                                                        <action selector="cleanCacheButtonTapped:" destination="gLO-Vx-tGv" eventType="touchUpInside" id="mRB-dp-FDc"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="ddW-Px-fJI" firstAttribute="leading" secondItem="Er1-Bj-5Wn" secondAttribute="leading" constant="20" id="Hhg-Ec-YQU"/>
-                                                <constraint firstItem="ddW-Px-fJI" firstAttribute="centerY" secondItem="Er1-Bj-5Wn" secondAttribute="centerY" id="csF-fl-MAj"/>
-                                                <constraint firstAttribute="trailing" secondItem="ddW-Px-fJI" secondAttribute="trailing" constant="20" id="sF7-IW-7VT"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="9Rp-Nh-mcF">
-                                        <rect key="frame" x="0.0" y="314.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="227.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Rp-Nh-mcF" id="4jj-FQ-yAi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -1143,7 +1084,7 @@
                             <tableViewSection headerTitle="Section-3" id="pJo-Lj-VUv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="TOX-db-Cig">
-                                        <rect key="frame" x="0.0" y="414" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="327" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TOX-db-Cig" id="k9U-MP-uDJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -1165,7 +1106,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="2dq-Ze-eSN">
-                                        <rect key="frame" x="0.0" y="457.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="370.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2dq-Ze-eSN" id="tMG-oc-LW8">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -1177,7 +1118,7 @@
                                                         <constraint firstAttribute="width" constant="169" id="RDb-wH-Q74"/>
                                                         <constraint firstAttribute="height" constant="21" id="REp-xF-AVP"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1187,7 +1128,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="L6e-8v-PaZ"/>
                                                         <constraint firstAttribute="width" constant="59" id="Rxx-a5-heL"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1205,7 +1146,7 @@
                             <tableViewSection headerTitle="Section-4" id="09z-9z-NWZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="IhM-68-wGM">
-                                        <rect key="frame" x="0.0" y="557" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="470" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IhM-68-wGM" id="1va-jD-cuK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -1228,7 +1169,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="OrR-zm-sIQ">
-                                        <rect key="frame" x="0.0" y="600.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="513.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OrR-zm-sIQ" id="jbS-qb-eMB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -1269,14 +1210,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="blockedUsersButton" destination="qlZ-YD-sRQ" id="kn4-T8-P9j"/>
-                        <outlet property="cleanCacheButton" destination="ddW-Px-fJI" id="fe2-YB-GwT"/>
                         <outlet property="deleteAccountButton" destination="WUq-YT-YnO" id="wSi-c2-FtO"/>
                         <outlet property="deleteUserAccountButton" destination="WUq-YT-YnO" id="XXX-39-Hn1"/>
                         <outlet property="fullNamesLabel" destination="JyG-Ap-yTj" id="fxA-SB-eeO"/>
                         <outlet property="logOutButton" destination="JU7-KS-pPP" id="Ana-dc-4P9"/>
                         <outlet property="profileImageView" destination="5h5-0v-4BC" id="0sr-Tg-IGq"/>
-                        <outlet property="showAvatarLabel" destination="8yM-tk-2ot" id="Xs7-o9-I9s"/>
-                        <outlet property="showAvatarStatusSwitch" destination="nga-0J-gfp" id="Tlc-Oz-vxQ"/>
                         <outlet property="slateVersionLabel" destination="IDN-C6-Xdr" id="cfA-X9-C1g"/>
                         <outlet property="tCButton" destination="PKx-DL-6sb" id="tYS-fs-ZGQ"/>
                         <outlet property="tellFriendButton" destination="J7z-mE-zns" id="6Iy-Vy-A3X"/>
@@ -1536,7 +1474,7 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
         <!--Chats-->
         <scene sceneID="qE6-in-tzQ">
             <objects>
-                <viewController id="SmQ-oC-6xC" customClass="ChatsViewController" customModule="Slate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SmQ-oC-6xC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hPe-oM-FdY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1545,7 +1483,7 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="wrN-zv-PEn" customClass="RecentChatTableViewCell" customModule="Slate" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="wrN-zv-PEn">
                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wrN-zv-PEn" id="BKQ-jt-fsM">
@@ -1686,15 +1624,8 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="04Z-6N-sL9">
-                                            <rect key="frame" x="5" y="10" width="80" height="80"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="Bjm-2h-hQr"/>
-                                                <constraint firstAttribute="height" constant="80" id="SHo-2n-nVq"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FULL NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9p-fs-bVf">
-                                            <rect key="frame" x="93" y="17" width="173.5" height="21"/>
+                                            <rect key="frame" x="98" y="17" width="168.5" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="4hG-kr-Sr5"/>
                                             </constraints>
@@ -1703,7 +1634,7 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last message 2 linesholds 2 lines holds 2 lines holds 2 lines" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypJ-wg-1pE">
-                                            <rect key="frame" x="93" y="43" width="230.5" height="46"/>
+                                            <rect key="frame" x="98" y="43" width="225.5" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="6f8-eL-Ku3"/>
                                                 <constraint firstAttribute="height" constant="46" id="mN2-Tg-oep"/>
@@ -1743,32 +1674,38 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zH2-Y9-yVJ">
+                                            <rect key="frame" x="10" y="10" width="80" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="ftz-py-x8y"/>
+                                                <constraint firstAttribute="height" constant="80" id="vJl-lA-5bH"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="zH2-Y9-yVJ" firstAttribute="centerY" secondItem="fuy-Qx-Rnf" secondAttribute="centerY" id="3Bh-1S-DHE"/>
                                         <constraint firstItem="v7B-lx-OBy" firstAttribute="leading" secondItem="e9p-fs-bVf" secondAttribute="trailing" constant="-5" id="9bV-aw-Cl5"/>
                                         <constraint firstItem="D3F-lu-4ri" firstAttribute="centerX" secondItem="v7B-lx-OBy" secondAttribute="centerX" constant="35.25" id="CPZ-bG-eDB"/>
-                                        <constraint firstItem="ypJ-wg-1pE" firstAttribute="leading" secondItem="04Z-6N-sL9" secondAttribute="trailing" constant="8" id="G6z-9R-lNa"/>
-                                        <constraint firstItem="04Z-6N-sL9" firstAttribute="centerY" secondItem="fuy-Qx-Rnf" secondAttribute="centerY" id="HaR-tx-yei"/>
+                                        <constraint firstItem="zH2-Y9-yVJ" firstAttribute="leading" secondItem="fuy-Qx-Rnf" secondAttribute="leadingMargin" constant="-10" id="Eky-s6-7eE"/>
+                                        <constraint firstItem="e9p-fs-bVf" firstAttribute="leading" secondItem="zH2-Y9-yVJ" secondAttribute="trailing" constant="8" symbolic="YES" id="H6J-ts-IV5"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="D3F-lu-4ri" secondAttribute="trailing" constant="14" id="Isf-w8-QTh"/>
                                         <constraint firstItem="ypJ-wg-1pE" firstAttribute="bottom" secondItem="fuy-Qx-Rnf" secondAttribute="bottomMargin" id="O06-Iu-OKo"/>
                                         <constraint firstItem="D3F-lu-4ri" firstAttribute="top" secondItem="v7B-lx-OBy" secondAttribute="bottom" constant="22" id="Rlt-ps-iFI"/>
                                         <constraint firstItem="e9p-fs-bVf" firstAttribute="top" secondItem="fuy-Qx-Rnf" secondAttribute="topMargin" constant="6" id="e78-lJ-OvX"/>
                                         <constraint firstItem="ypJ-wg-1pE" firstAttribute="bottom" secondItem="fuy-Qx-Rnf" secondAttribute="bottomMargin" id="gFe-Xc-0jb"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="D3F-lu-4ri" secondAttribute="bottom" constant="5" id="kgG-dj-6tX"/>
-                                        <constraint firstItem="04Z-6N-sL9" firstAttribute="leading" secondItem="fuy-Qx-Rnf" secondAttribute="leading" constant="5" id="mI7-AW-eKU"/>
                                         <constraint firstItem="D3F-lu-4ri" firstAttribute="leading" secondItem="ypJ-wg-1pE" secondAttribute="trailing" constant="8" id="mNl-8a-EOH"/>
                                         <constraint firstItem="v7B-lx-OBy" firstAttribute="top" secondItem="fuy-Qx-Rnf" secondAttribute="top" constant="11" id="oFK-9P-HJc"/>
-                                        <constraint firstItem="ypJ-wg-1pE" firstAttribute="leading" secondItem="04Z-6N-sL9" secondAttribute="trailing" constant="8" id="s1o-hV-5ra"/>
+                                        <constraint firstItem="ypJ-wg-1pE" firstAttribute="leading" secondItem="zH2-Y9-yVJ" secondAttribute="trailing" constant="8" symbolic="YES" id="pC0-oA-W4H"/>
                                         <constraint firstAttribute="trailing" secondItem="v7B-lx-OBy" secondAttribute="trailing" constant="22.5" id="tZx-Xj-oWd"/>
-                                        <constraint firstItem="e9p-fs-bVf" firstAttribute="leading" secondItem="04Z-6N-sL9" secondAttribute="trailing" constant="8" id="xC4-Wv-3R4"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="avatarImageView" destination="04Z-6N-sL9" id="BXX-06-lrX"/>
                                     <outlet property="dateLabel" destination="v7B-lx-OBy" id="pd7-xf-q8N"/>
                                     <outlet property="fullNameLabel" destination="e9p-fs-bVf" id="bDS-sB-onD"/>
                                     <outlet property="lastMessageLabel" destination="ypJ-wg-1pE" id="mCZ-hS-TDc"/>
+                                    <outlet property="profileImageView" destination="zH2-Y9-yVJ" id="iOB-eA-9gM"/>
                                     <outlet property="unreadCounterBackgroundView" destination="D3F-lu-4ri" id="GGg-ra-ljp"/>
                                     <outlet property="unreadCounterlabel" destination="5CG-u1-j2g" id="4N6-F2-AVx"/>
                                 </connections>
@@ -1783,7 +1720,7 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jpk-OK-ddB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-923" y="1699"/>
+            <point key="canvasLocation" x="-617.39130434782612" y="1774.5535714285713"/>
         </scene>
         <!--Messages View Controller-->
         <scene sceneID="wia-Ue-g5E">
@@ -1921,15 +1858,8 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="7OC-1J-pV0">
-                                            <rect key="frame" x="20" y="12.5" width="60" height="60"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="iIA-Im-jDe"/>
-                                                <constraint firstAttribute="height" constant="60" id="rXR-BF-V6S"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2C-iK-anU">
-                                            <rect key="frame" x="88" y="11" width="198" height="23"/>
+                                            <rect key="frame" x="77" y="11" width="209" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1955,11 +1885,11 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdadasdadasadsdasdasdasdasdasdasdas dfsdfs sdrhgffghfgj" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prQ-sN-vRV">
-                                            <rect key="frame" x="86" y="37" width="253" height="44"/>
+                                            <rect key="frame" x="77" y="27" width="262" height="54"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="ebv-WE-AbK"/>
+                                                <constraint firstAttribute="height" constant="54" id="ebv-WE-AbK"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.46257496840000001" green="0.46257496840000001" blue="0.46257496840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1972,28 +1902,35 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
                                             <color key="textColor" red="0.46257496840000001" green="0.46257496840000001" blue="0.46257496840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1q0-RU-evb">
+                                            <rect key="frame" x="9" y="12.5" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="JPD-o5-xyv"/>
+                                                <constraint firstAttribute="width" constant="60" id="R8M-Bu-qSm"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="1q0-RU-evb" firstAttribute="centerY" secondItem="mBY-qa-qnw" secondAttribute="centerY" id="0bi-Xm-ULN"/>
                                         <constraint firstItem="Sq8-dc-FWf" firstAttribute="leading" secondItem="u2C-iK-anU" secondAttribute="trailing" constant="8" id="6Uq-WV-pri"/>
-                                        <constraint firstItem="u2C-iK-anU" firstAttribute="leading" secondItem="7OC-1J-pV0" secondAttribute="trailing" constant="8" id="Cjd-cZ-qiu"/>
                                         <constraint firstItem="M19-fc-mbp" firstAttribute="leading" secondItem="prQ-sN-vRV" secondAttribute="trailing" constant="8" id="GRM-Yy-0qr"/>
-                                        <constraint firstItem="7OC-1J-pV0" firstAttribute="centerY" secondItem="mBY-qa-qnw" secondAttribute="centerY" id="Hl7-gH-t97"/>
                                         <constraint firstItem="M19-fc-mbp" firstAttribute="bottom" secondItem="mBY-qa-qnw" secondAttribute="bottomMargin" id="KBp-CG-lZU"/>
-                                        <constraint firstItem="7OC-1J-pV0" firstAttribute="leading" secondItem="mBY-qa-qnw" secondAttribute="leadingMargin" id="LgE-B1-YT9"/>
                                         <constraint firstItem="Sq8-dc-FWf" firstAttribute="top" secondItem="mBY-qa-qnw" secondAttribute="top" constant="12" id="VUw-hv-FWP"/>
-                                        <constraint firstItem="prQ-sN-vRV" firstAttribute="leading" secondItem="7OC-1J-pV0" secondAttribute="trailing" constant="6" id="WLD-5a-IWm"/>
                                         <constraint firstItem="prQ-sN-vRV" firstAttribute="bottom" secondItem="mBY-qa-qnw" secondAttribute="bottomMargin" constant="7" id="WkM-Mx-LWA"/>
                                         <constraint firstItem="M19-fc-mbp" firstAttribute="trailing" secondItem="mBY-qa-qnw" secondAttribute="trailingMargin" constant="2" id="eTe-r8-zeE"/>
+                                        <constraint firstItem="1q0-RU-evb" firstAttribute="leading" secondItem="mBY-qa-qnw" secondAttribute="leadingMargin" constant="-11" id="jU5-m7-1eY"/>
+                                        <constraint firstItem="prQ-sN-vRV" firstAttribute="leading" secondItem="1q0-RU-evb" secondAttribute="trailing" constant="8" symbolic="YES" id="n1U-tw-dQn"/>
                                         <constraint firstAttribute="trailing" secondItem="Sq8-dc-FWf" secondAttribute="trailing" constant="2" id="raV-XJ-RQP"/>
+                                        <constraint firstItem="u2C-iK-anU" firstAttribute="leading" secondItem="1q0-RU-evb" secondAttribute="trailing" constant="8" symbolic="YES" id="w0M-oB-223"/>
                                         <constraint firstItem="u2C-iK-anU" firstAttribute="top" secondItem="mBY-qa-qnw" secondAttribute="topMargin" id="ymK-wd-9Oi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarImageView" destination="7OC-1J-pV0" id="A0P-Bl-svp"/>
                                     <outlet property="counterBackgroundView" destination="M19-fc-mbp" id="txh-FQ-WOM"/>
                                     <outlet property="counterLabel" destination="MAt-XE-Lx9" id="RVh-Rx-lJM"/>
                                     <outlet property="dateLabel" destination="Sq8-dc-FWf" id="8Le-RY-7Mb"/>
                                     <outlet property="lastMessageLabel" destination="prQ-sN-vRV" id="zMS-1F-rrW"/>
+                                    <outlet property="profileImageView" destination="1q0-RU-evb" id="ElH-ak-dHe"/>
                                     <outlet property="usernameLabel" destination="u2C-iK-anU" id="ZZJ-AK-oAj"/>
                                 </connections>
                             </tableViewCell>
@@ -2015,11 +1952,11 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
             </objects>
             <point key="canvasLocation" x="650.72463768115949" y="995.75892857142856"/>
         </scene>
-        <!--Item-->
+        <!--Chats-->
         <scene sceneID="2wG-a0-InG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4RE-jv-65b" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="0HM-mc-X4r"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="chat" id="0HM-mc-X4r"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="sYJ-Kl-Idn">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -2036,7 +1973,7 @@ Jarlsberg jarlsberg the big cheese. The big cheese cut the cheese swiss chalk an
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0pP-eV-dbb"/>
+        <segue reference="beo-eV-go1"/>
         <segue reference="4AU-BS-TJC"/>
         <segue reference="obE-gn-IYX"/>
     </inferredMetricsTieBreakers>

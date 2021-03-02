@@ -11,44 +11,50 @@ import UIKit
 class MessagesTableViewController: UITableViewController {
     
     //MARK: - Vars
-        var allRecents:[RecentNew] = []
-        var filteredRecents:[RecentNew] = []
-        
-        let searchController = UISearchController(searchResultsController: nil)
-
-        //MARK: - ViewLifecycle
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            tableView.tableFooterView = UIView()
-            downloadRecentChats()
-            setupSearchController()
-        }
+    var allRecents:[RecentNew] = []
+    var filteredRecents:[RecentNew] = []
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    //MARK: - ViewLifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.tableFooterView = UIView()
+        setupSearchController()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        downloadRecentChats()
+
+    }
     //MARK: - IBActions
     @IBAction func composeBarButtonPressed(_ sender: Any) {
         
-        let userView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "usersView") as! UsersTableViewController
-
-                navigationController?.pushViewController(userView, animated: true)
+        let userView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "usersTableView") as! UsersTableViewController
+        
+        navigationController?.pushViewController(userView, animated: true)
     }
     
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return searchController.isActive ? filteredRecents.count : allRecents.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewRecentTableViewCell
-
+        
         let recent = searchController.isActive ? filteredRecents[indexPath.row] : allRecents[indexPath.row]
-
+        
         cell.configure(recent: recent)
         
+        
         return cell
+        
     }
     
     //MARK: - TableViewDelegate
@@ -94,7 +100,7 @@ class MessagesTableViewController: UITableViewController {
         
         return 5
     }
-
+    
     
     //MARK: - Download Chats
     private func downloadRecentChats() {
@@ -120,8 +126,8 @@ class MessagesTableViewController: UITableViewController {
         privateChatView.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(privateChatView, animated: true)
     }
-
-
+    
+    
     
     //MARK: - Search controller
     private func setupSearchController() {
@@ -134,7 +140,7 @@ class MessagesTableViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
     }
-
+    
     private func filteredContentForSearchText(searchText: String) {
         
         filteredRecents = allRecents.filter({ (recent) -> Bool in
@@ -144,7 +150,7 @@ class MessagesTableViewController: UITableViewController {
         
         tableView.reloadData()
     }
-
+    
 }
 
 extension MessagesTableViewController: UISearchResultsUpdating {

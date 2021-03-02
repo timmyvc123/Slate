@@ -14,13 +14,10 @@ class SetTableViewController: UITableViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNamesLabel: UILabel!
     @IBOutlet weak var blockedUsersButton: UIButton!
-    @IBOutlet weak var showAvatarLabel: UILabel!
-    @IBOutlet weak var cleanCacheButton: UIButton!
     @IBOutlet weak var tellFriendButton: UIButton!
     @IBOutlet weak var tCButton: UIButton!
     @IBOutlet weak var slateVersionLabel: UILabel!
     @IBOutlet weak var deleteUserAccountButton: UIButton!
-    @IBOutlet weak var showAvatarStatusSwitch: UISwitch!
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var deleteAccountButton: UIButton!
@@ -41,11 +38,20 @@ class SetTableViewController: UITableViewController {
             setUpUI()
             loadUserDefaults()
         }
+        setUpUI()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // if we have a current user setUpUI
+//        if FUser.currentUser != nil {
+//            setUpUI()
+//            loadUserDefaults()
+//        }
+    
+        setUpUI()
         
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.tableFooterView = UIView()
@@ -60,8 +66,7 @@ class SetTableViewController: UITableViewController {
         tabBarController?.tabBar.items?[2].title = NSLocalizedString("Settings", comment: "")
         
         blockedUsersButton.setTitle(NSLocalizedString("Blocked Users", comment: ""), for: .normal)
-        showAvatarLabel.text = NSLocalizedString("Show Avatar", comment: "")
-        cleanCacheButton.setTitle(NSLocalizedString("Clean Cache", comment: ""), for: .normal)
+
         tellFriendButton.setTitle(NSLocalizedString("Tell a Friend", comment: ""), for: .normal)
         
         
@@ -86,8 +91,8 @@ class SetTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else if section == 1 {
-            return 4
+        } else if section == 1 || section == 2 {
+            return 2
         }
         return 2
     }
@@ -114,48 +119,9 @@ class SetTableViewController: UITableViewController {
     
     //MARK: IBActions
     
-    @IBAction func showAvatarStatusSwitchValueChanged(_ sender: UISwitch) {
-        
-        if sender.isOn {
-            avatarSwitchStatus = true
-        } else {
-            avatarSwitchStatus = false
-        }
-        
-        // avatarSwitchStatus = sender.isOn
-        
-        saveUserDefaults()
-        
-    }
-    
     @IBAction func TCButtonPressed(_ sender: Any) {
         let urlComponents = URLComponents (string: "http://www.slateofficial.com/terms.html")!
         UIApplication.shared.open (urlComponents.url!)
-    }
-    @IBAction func cleanCacheButtonTapped(_ sender: Any) {
-        
-        do {
-            
-            let files = try FileManager.default.contentsOfDirectory(atPath: getDocumentsURL().path)
-            
-            // got to the filePath and delete the files
-            for file in files {
-                try FileManager.default.removeItem(atPath: "\(getDocumentsURL().path)/\(file)")            }
-            
-            hud.textLabel.text = NSLocalizedString("Cache Cleaned!", comment: "")
-            hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-            hud.show(in: self.view)
-            hud.dismiss(afterDelay: 2.0, animated: true)
-            
-            
-        } catch {
-            
-            hud.textLabel.text = NSLocalizedString("Couldn't clean Media files", comment: "")
-            hud.indicatorView = JGProgressHUDErrorIndicatorView()
-            hud.show(in: self.view)
-            hud.dismiss(afterDelay: 2.0, animated: true)
-        }
-        
     }
     
     @IBAction func tellFriendButtonTapped(_ sender: Any) {
@@ -239,7 +205,12 @@ class SetTableViewController: UITableViewController {
     
     func setUpUI() {
         
-        let currentUser = FUser.currentUser!
+//        print("HELLOOOOOOO")
+        
+        let currentUser = FUser.currentUserFunc()!
+        
+        //profileImageView.isUserInteractionEnabled = true
+        
         fullNamesLabel.text = currentUser.fullname
         
         if currentUser.avatar != "" {
@@ -247,17 +218,11 @@ class SetTableViewController: UITableViewController {
             imageFromData(pictureData: currentUser.avatar) { (avatarImage) in
                 
                 if avatarImage != nil {
-                    
                     self.profileImageView.image = avatarImage!.circleMasked
                 }
             }
         }
         
-        //set app version
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            
-            versionLabel.text = version
-        }
     }
     
     //MARk: Delete User
@@ -312,12 +277,8 @@ class SetTableViewController: UITableViewController {
         if !firstLoad! {
             
             userDefaults.set(true, forKey: kFIRSTRUN)
-            userDefaults.set(avatarSwitchStatus, forKey: kSHOWAVATAR)
             userDefaults.synchronize()
         }
-        
-        avatarSwitchStatus = userDefaults.bool(forKey: kSHOWAVATAR)
-        showAvatarStatusSwitch.isOn = avatarSwitchStatus
         
     }
     

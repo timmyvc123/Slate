@@ -40,6 +40,8 @@ class ContactsTableViewCell: UITableViewCell {
     
     func generateCellWith(fUser: FUser, indexPath: IndexPath) {
         
+        print("Contact cell.....")
+        
         self.indexPath = indexPath
         
         self.fullNameLabel.text = fUser.fullname

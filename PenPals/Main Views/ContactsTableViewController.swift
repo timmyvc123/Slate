@@ -19,8 +19,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     var allUsersGrouped = NSDictionary() as! [String : [FUser]]
     var sectionTitleList : [String] = []
     
-    var currentFriendListIds = FUser.currentUserFunc()!.friendListIds
-    
+    var currentFriendListIds = FUser.currentUserFunc()!.friendListIds 
     var hud = JGProgressHUD(style: .dark)
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -65,7 +64,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
     
     @IBAction func refreshController(_ sender: UIRefreshControl) {
         
-        getUsersFromFirestore(withIds:  FUser.currentUser!.friendListIds) { (allFriendUsers) in
+        getUsersFromFirestore(withIds:  FUser.currentUserFunc()!.friendListIds) { (allFriendUsers) in
             
             self.hud.dismiss()
             
