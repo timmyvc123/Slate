@@ -27,17 +27,10 @@ pod 'InputBarAccessoryView'
 pod 'JGProgressHUD'
 pod 'ProgressHUD'
 
-pod 'JSQMessagesViewController', '7.3.3'
 pod 'IDMPhotoBrowser'
 
-pod 'OneSignal'
 pod 'PasswordTextField'
 
 pod 'ImagePicker'
 
-end
-
-target 'OneSignalNotificationServiceExtension' do
-  use_frameworks!
-  pod 'OneSignal'
 end
