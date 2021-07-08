@@ -2,3 +2,4 @@ Slate is here to bridge the language gap across the globe! Slate provides the ab
 
 Slate uses Firebase to store and send text, photo, video & audio messages. Then uses the Google Translate API to translate these messages to the user's specified language. 
 
+![Slate Image1](/Slate/Assets.xcassets/loginScreen-min - Copy.png)
